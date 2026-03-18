@@ -1,6 +1,93 @@
 aid: uspto
 url: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/apis.yml
 apis:
+- aid: uspto:uspto-patent-trial-appeal-board-api
+  name: USPTO Patent Trial and Appeal Board (PTAB) API
+  tags:
+  - Government
+  - Patents
+  - PTAB
+  - Regulatory
+  image: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/image.png
+  humanURL: https://data.uspto.gov/ptab
+  baseURL: https://data.uspto.gov/api/v1
+  properties:
+  - url: https://data.uspto.gov/ptab
+    type: Documentation
+  - url: https://data.uspto.gov/swagger/index.html
+    type: OpenAPI
+  description: >-
+    The USPTO PTAB API provides access to Patent Trial and Appeal Board proceedings data including inter partes reviews, post-grant reviews, and covered business method reviews. Returns trial status, petitions, decisions, and related documents.
+
+- aid: uspto:uspto-trademark-status-api
+  name: USPTO Trademark Status and Document Retrieval (TSDR) API
+  tags:
+  - Government
+  - Trademarks
+  - Regulatory
+  image: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/image.png
+  humanURL: https://developer.uspto.gov/swagger/tsdr-api-v1
+  baseURL: https://tsdrapi.uspto.gov
+  properties:
+  - url: https://developer.uspto.gov/swagger/tsdr-api-v1
+    type: Documentation
+  - url: https://developer.uspto.gov/swagger/tsdr-api-v1
+    type: OpenAPI
+  description: >-
+    The USPTO Trademark Status and Document Retrieval (TSDR) API enables programmatic access to trademark case status, filing history, and associated documents. Returns status information for trademark applications and registrations.
+
+- aid: uspto:uspto-patent-assignment-api
+  name: USPTO Patent Assignment Search API
+  tags:
+  - Government
+  - Patents
+  - Assignments
+  - Regulatory
+  image: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/image.png
+  humanURL: https://developer.uspto.gov/api-catalog
+  baseURL: https://assignmentcenter.uspto.gov/api
+  properties:
+  - url: https://developer.uspto.gov/api-catalog
+    type: Documentation
+  description: >-
+    The USPTO Patent Assignment Search API retrieves patent assignment information including ownership transfers, recorded assignments, and assignment history for individual patents and patent portfolios.
+
+- aid: uspto:uspto-office-action-api
+  name: USPTO Office Action Text Retrieval API
+  tags:
+  - Government
+  - Patents
+  - Office Actions
+  - Regulatory
+  image: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/image.png
+  humanURL: https://developer.uspto.gov/ds-api-docs/index.html?url=https%3A//developer.uspto.gov/ds-api/swagger/docs/oa_actions.json
+  baseURL: https://developer.uspto.gov/ds-api
+  properties:
+  - url: https://developer.uspto.gov/ds-api-docs/index.html?url=https%3A//developer.uspto.gov/ds-api/swagger/docs/oa_actions.json
+    type: Documentation
+  - url: https://developer.uspto.gov/ds-api/swagger/docs/oa_actions.json
+    type: OpenAPI
+  description: >-
+    The USPTO Office Action Text Retrieval API provides access to the full text of USPTO patent examiner office actions. Returns rejection text, claims analysis, and prior art citations for patent applications under examination.
+
+- aid: uspto:uspto-enriched-citation-api
+  name: USPTO Enriched Citation API
+  tags:
+  - Government
+  - Patents
+  - Citations
+  - Regulatory
+  image: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/image.png
+  humanURL: https://developer.uspto.gov/ds-api-docs/index.html?url=https%3A//developer.uspto.gov/ds-api/swagger/docs/enriched_cited_reference_metadata.json/V3
+  baseURL: https://developer.uspto.gov/ds-api
+  properties:
+  - url: https://developer.uspto.gov/ds-api-docs/index.html?url=https%3A//developer.uspto.gov/ds-api/swagger/docs/enriched_cited_reference_metadata.json/V3
+    type: Documentation
+  - url: https://developer.uspto.gov/ds-api/swagger/docs/enriched_cited_reference_metadata.json
+    type: OpenAPI
+  description: >-
+    The USPTO Enriched Citation API provides enriched citation reference metadata for patent documents including non-patent literature and patent citations. Returns structured citation data for patent analysis, competitive intelligence, and IP research.
+
 - aid: uspto:uspto-api
   name: USPTO Patent & Trademark API
   tags:
@@ -15,5 +102,27 @@ apis:
   properties:
   - url: https://developer.uspto.gov/
     type: Documentation
+  - url: https://developer.uspto.gov/api-catalog
+    type: Reference
   description: >-
     The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, patent application status, trademark lookup, and citation data. APIs return XML and JSON responses covering published applications, granted patents, and trademark registrations.
+
+common:
+- url: https://developer.uspto.gov/
+  type: Portal
+- url: https://developer.uspto.gov/
+  type: Documentation
+- url: https://developer.uspto.gov/api-catalog
+  type: GettingStarted
+- url: https://data.uspto.gov/
+  type: DeveloperTools
+- url: https://www.uspto.gov/privacy-policy
+  type: PrivacyPolicy
+- url: https://www.uspto.gov/
+  type: Website
+
+maintainers:
+- name: Kin Lane
+  email: kin@apievangelist.com
+
+modified: '2026-03-18'
