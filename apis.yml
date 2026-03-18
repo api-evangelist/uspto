@@ -1,0 +1,19 @@
+aid: uspto
+url: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/apis.yml
+apis:
+- aid: uspto:uspto-api
+  name: USPTO Patent & Trademark API
+  tags:
+  - Government
+  - Patents
+  - Trademarks
+  - XML
+  - Regulatory
+  image: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/image.png
+  humanURL: https://developer.uspto.gov/
+  baseURL: https://developer.uspto.gov/ibd-api
+  properties:
+  - url: https://developer.uspto.gov/
+    type: Documentation
+  description: >-
+    The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, patent application status, trademark lookup, and citation data. APIs return XML and JSON responses covering published applications, granted patents, and trademark registrations.
