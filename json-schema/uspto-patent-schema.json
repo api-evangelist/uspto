@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://developer.uspto.gov/schemas/patent",
+  "title": "USPTO Patent",
+  "description": "A United States Patent — either a pending application or granted patent",
+  "type": "object",
+  "properties": {
+    "applicationNumber": {
+      "type": "string",
+      "description": "USPTO application number",
+      "pattern": "^\\d{8}$",
+      "examples": ["16123456"]
+    },
+    "patentNumber": {
+      "type": ["string", "null"],
+      "description": "Granted patent number (null for pending applications)",
+      "examples": ["10234567", "D987654", "RE48000"]
+    },
+    "title": {
+      "type": "string",
+      "description": "Patent title as filed"
+    },
+    "abstract": {
+      "type": "string",
+      "description": "Abstract of the invention"
+    },
+    "filingDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Application filing date"
+    },
+    "publicationDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Pre-grant publication date (18 months after filing for US applications)"
+    },
+    "grantDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Patent grant date (null for pending applications)"
+    },
+    "expirationDate": {
+      "type": ["string", "null"],
+      "format": "date",
+      "description": "Patent expiration date"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["PENDING", "GRANTED", "ABANDONED", "EXPIRED"],
+      "description": "Current prosecution status"
+    },
+    "patentType": {
+      "type": "string",
+      "enum": ["UTILITY", "DESIGN", "PLANT", "REISSUE"],
+      "description": "Type of patent"
+    },
+    "inventors": {
+      "type": "array",
+      "description": "Named inventors on the patent",
+      "items": {
+        "$ref": "#/$defs/Inventor"
+      }
+    },
+    "assignees": {
+      "type": "array",
+      "description": "Current assignees/owners of the patent",
+      "items": {
+        "$ref": "#/$defs/Assignee"
+      }
+    },
+    "cpcClassifications": {
+      "type": "array",
+      "description": "Cooperative Patent Classification (CPC) codes",
+      "items": {
+        "$ref": "#/$defs/Classification"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "description": "Patent claims defining the scope of protection",
+      "items": {
+        "$ref": "#/$defs/Claim"
+      }
+    },
+    "priorityClaims": {
+      "type": "array",
+      "description": "Priority applications (continuation, PCT, provisional)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["CONTINUATION", "CONTINUATION_IN_PART", "DIVISIONAL", "PROVISIONAL", "PCT", "FOREIGN"]
+          },
+          "applicationNumber": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "filingDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      }
+    },
+    "citations": {
+      "type": "object",
+      "description": "References cited in the patent",
+      "properties": {
+        "patentCitations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "patentNumber": {"type": "string"},
+              "country": {"type": "string"},
+              "citedBy": {
+                "type": "string",
+                "enum": ["APPLICANT", "EXAMINER"]
+              }
+            }
+          }
+        },
+        "nonPatentCitations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "reference": {"type": "string"},
+              "citedBy": {
+                "type": "string",
+                "enum": ["APPLICANT", "EXAMINER"]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["applicationNumber", "title", "filingDate", "status", "patentType"],
+  "$defs": {
+    "Inventor": {
+      "type": "object",
+      "properties": {
+        "firstName": {"type": "string"},
+        "lastName": {"type": "string"},
+        "city": {"type": "string"},
+        "state": {"type": "string"},
+        "country": {"type": "string", "pattern": "^[A-Z]{2}$"}
+      },
+      "required": ["lastName"]
+    },
+    "Assignee": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "entityType": {
+          "type": "string",
+          "enum": ["INDIVIDUAL", "COMPANY", "UNIVERSITY", "GOVERNMENT"]
+        },
+        "city": {"type": "string"},
+        "state": {"type": "string"},
+        "country": {"type": "string"}
+      },
+      "required": ["name"]
+    },
+    "Classification": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Classification code",
+          "examples": ["H04W 4/021", "G06F 21/10"]
+        },
+        "description": {"type": "string"},
+        "classificationType": {
+          "type": "string",
+          "enum": ["CPC", "USPC", "IPC"],
+          "default": "CPC"
+        }
+      },
+      "required": ["code"]
+    },
+    "Claim": {
+      "type": "object",
+      "properties": {
+        "claimNumber": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "claimType": {
+          "type": "string",
+          "enum": ["INDEPENDENT", "DEPENDENT"]
+        },
+        "dependsOn": {
+          "type": "integer",
+          "description": "Claim number this claim depends on (for dependent claims)"
+        },
+        "claimText": {
+          "type": "string",
+          "description": "Full text of the claim"
+        }
+      },
+      "required": ["claimNumber", "claimType", "claimText"]
+    }
+  }
+}

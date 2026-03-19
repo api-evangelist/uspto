@@ -1,0 +1,65 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "patent": "https://data.uspto.gov/vocab/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Patent": "schema:CreativeWork",
+    "Trademark": "schema:Brand",
+    "Inventor": "schema:Person",
+    "Assignee": "schema:Organization",
+    "PTABTrial": "schema:LegalCase",
+
+    "applicationNumber": "schema:identifier",
+    "patentNumber": "schema:identifier",
+    "title": "schema:name",
+    "abstract": "schema:abstract",
+    "filingDate": {
+      "@id": "schema:datePublished",
+      "@type": "xsd:date"
+    },
+    "grantDate": {
+      "@id": "patent:grantDate",
+      "@type": "xsd:date"
+    },
+    "expirationDate": {
+      "@id": "schema:expires",
+      "@type": "xsd:date"
+    },
+    "status": "schema:actionStatus",
+    "patentType": "schema:additionalType",
+    "inventors": {
+      "@id": "schema:author",
+      "@type": "schema:Person"
+    },
+    "assignees": {
+      "@id": "schema:creator",
+      "@type": "schema:Organization"
+    },
+    "cpcClassifications": "patent:classification",
+    "claims": "patent:claims",
+
+    "firstName": "schema:givenName",
+    "lastName": "schema:familyName",
+    "city": "schema:addressLocality",
+    "state": "schema:addressRegion",
+    "country": "schema:addressCountry",
+
+    "serialNumber": "schema:identifier",
+    "markLiteralElements": "schema:name",
+    "registrationDate": {
+      "@id": "patent:registrationDate",
+      "@type": "xsd:date"
+    },
+    "goodsAndServices": "schema:description",
+
+    "trialNumber": "schema:identifier",
+    "proceedingType": "schema:additionalType",
+    "petitionerName": "schema:participant",
+    "patentOwnerName": {
+      "@id": "schema:creator",
+      "@type": "@id"
+    }
+  }
+}

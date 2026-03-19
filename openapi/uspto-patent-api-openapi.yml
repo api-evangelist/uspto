@@ -1,0 +1,777 @@
+openapi: 3.1.0
+info:
+  title: USPTO Patent & Trademark API
+  description: >-
+    The United States Patent and Trademark Office (USPTO) provides REST APIs for
+    patent search, PTAB trial proceedings, trademark status lookup, and patent
+    citation data. APIs are hosted at developer.uspto.gov and data.uspto.gov.
+    An ODP API key is required for most endpoints.
+  version: "3.0"
+  contact:
+    name: USPTO Open Data Portal
+    url: https://developer.uspto.gov/
+  license:
+    name: Public Domain (U.S. Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+  - url: https://data.uspto.gov/api/v1
+    description: USPTO Open Data Portal API v1
+  - url: https://developer.uspto.gov/ds-api
+    description: USPTO Data Set API (legacy)
+
+security:
+  - ApiKeyHeader: []
+
+tags:
+  - name: Patents
+    description: Patent search and retrieval
+  - name: PTAB
+    description: Patent Trial and Appeal Board proceedings
+  - name: Trademarks
+    description: Trademark status and documents
+  - name: Assignments
+    description: Patent assignment records
+
+paths:
+  /patent/applications/search:
+    get:
+      operationId: searchPatentApplications
+      summary: Search patent applications
+      description: >-
+        Searches USPTO patent applications by keyword, inventor, assignee, filing date,
+        classification code, and other criteria. Returns application metadata for
+        published and granted patents.
+      tags:
+        - Patents
+      parameters:
+        - name: query
+          in: query
+          required: false
+          description: Keyword search query
+          schema:
+            type: string
+          example: "autonomous vehicle lidar sensor"
+        - name: inventor
+          in: query
+          schema:
+            type: string
+          description: Inventor name (last name, first name)
+        - name: assignee
+          in: query
+          schema:
+            type: string
+          description: Assignee/applicant company name
+        - name: filingDateStart
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filing date range start
+        - name: filingDateEnd
+          in: query
+          schema:
+            type: string
+            format: date
+          description: Filing date range end
+        - name: cpcClassification
+          in: query
+          schema:
+            type: string
+          description: CPC (Cooperative Patent Classification) code
+          example: "B60W2050/0001"
+        - name: patentType
+          in: query
+          schema:
+            type: string
+            enum: [UTILITY, DESIGN, PLANT, REISSUE]
+          default: UTILITY
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [PENDING, GRANTED, ABANDONED, EXPIRED]
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 25
+            maximum: 100
+      responses:
+        '200':
+          description: Patent application search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatentSearchResponse'
+        '401':
+          description: Invalid or missing API key
+        '429':
+          description: Rate limit exceeded
+
+  /patent/applications/{applicationNumber}:
+    get:
+      operationId: getPatentApplication
+      summary: Get patent application details
+      description: >-
+        Returns full metadata for a specific patent application including claims,
+        abstract, inventors, assignees, filing history, and prosecution history.
+      tags:
+        - Patents
+      parameters:
+        - name: applicationNumber
+          in: path
+          required: true
+          description: USPTO application number (e.g., 16123456)
+          schema:
+            type: string
+          example: "16123456"
+      responses:
+        '200':
+          description: Patent application details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatentApplication'
+        '404':
+          description: Application not found
+
+  /patent/grants/{patentNumber}:
+    get:
+      operationId: getGrantedPatent
+      summary: Get a granted patent
+      description: Returns full details for a granted United States patent by patent number.
+      tags:
+        - Patents
+      parameters:
+        - name: patentNumber
+          in: path
+          required: true
+          description: USPTO patent number (without US prefix)
+          schema:
+            type: string
+          example: "10234567"
+      responses:
+        '200':
+          description: Granted patent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrantedPatent'
+        '404':
+          description: Patent not found
+
+  /ptab/trials:
+    get:
+      operationId: searchPTABTrials
+      summary: Search PTAB trial proceedings
+      description: >-
+        Searches Patent Trial and Appeal Board (PTAB) proceedings including
+        Inter Partes Reviews (IPR), Post-Grant Reviews (PGR), and Covered Business
+        Method (CBM) reviews.
+      tags:
+        - PTAB
+      parameters:
+        - name: patentNumber
+          in: query
+          schema:
+            type: string
+          description: Challenged patent number
+        - name: petitionerName
+          in: query
+          schema:
+            type: string
+        - name: patentOwnerName
+          in: query
+          schema:
+            type: string
+        - name: proceedingType
+          in: query
+          schema:
+            type: string
+            enum: [IPR, PGR, CBM, DER, POP]
+          description: Type of PTAB proceeding
+        - name: filingDateStart
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: filingDateEnd
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [INSTITUTED, DENIED, TERMINATED, SETTLED, PENDING]
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 25
+      responses:
+        '200':
+          description: PTAB trial search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PTABTrialSearchResponse'
+
+  /ptab/trials/{trialNumber}:
+    get:
+      operationId: getPTABTrial
+      summary: Get PTAB trial details
+      description: Returns detailed information for a specific PTAB trial proceeding.
+      tags:
+        - PTAB
+      parameters:
+        - name: trialNumber
+          in: path
+          required: true
+          description: PTAB trial number (e.g., IPR2023-00001)
+          schema:
+            type: string
+          example: "IPR2023-00001"
+      responses:
+        '200':
+          description: PTAB trial details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PTABTrial'
+        '404':
+          description: Trial not found
+
+  /ptab/decisions/search:
+    get:
+      operationId: searchPTABDecisions
+      summary: Search PTAB decisions
+      description: Searches PTAB decisions by trial number, date, or keyword.
+      tags:
+        - PTAB
+      parameters:
+        - name: searchText
+          in: query
+          schema:
+            type: string
+          description: Full-text search in decision documents
+        - name: proceedingType
+          in: query
+          schema:
+            type: string
+            enum: [IPR, PGR, CBM]
+        - name: decisionType
+          in: query
+          schema:
+            type: string
+            enum: [INSTITUTION, FINAL_WRITTEN_DECISION, CLAIM_CONSTRUCTION]
+        - name: dateStart
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: dateEnd
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 25
+      responses:
+        '200':
+          description: PTAB decision results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PTABDecisionSearchResponse'
+
+  /trademark/status/{serialNumber}:
+    get:
+      operationId: getTrademarkStatus
+      summary: Get trademark application status
+      description: >-
+        Returns the current status, prosecution history, and filing information
+        for a trademark application or registration by serial number.
+      tags:
+        - Trademarks
+      parameters:
+        - name: serialNumber
+          in: path
+          required: true
+          description: Trademark serial number (8 digits)
+          schema:
+            type: string
+            pattern: '^\d{8}$'
+          example: "88123456"
+      responses:
+        '200':
+          description: Trademark status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrademarkStatus'
+        '404':
+          description: Trademark not found
+
+  /patent/assignments/search:
+    get:
+      operationId: searchPatentAssignments
+      summary: Search patent assignments
+      description: >-
+        Searches recorded patent assignments including ownership transfers,
+        security agreements, and merger/acquisition records.
+      tags:
+        - Assignments
+      parameters:
+        - name: patentNumber
+          in: query
+          schema:
+            type: string
+        - name: assignorName
+          in: query
+          schema:
+            type: string
+        - name: assigneeName
+          in: query
+          schema:
+            type: string
+        - name: conveyanceType
+          in: query
+          schema:
+            type: string
+            enum: [ASSIGNMENT, SECURITY_AGREEMENT, LICENSE, MERGER]
+        - name: dateStart
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: dateEnd
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 25
+      responses:
+        '200':
+          description: Assignment search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentSearchResponse'
+
+components:
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: USPTO Open Data Portal API key
+
+  schemas:
+    PatentSearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatentSummary'
+        totalResults:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+
+    PatentSummary:
+      type: object
+      properties:
+        applicationNumber:
+          type: string
+        patentNumber:
+          type: string
+          nullable: true
+        title:
+          type: string
+        filingDate:
+          type: string
+          format: date
+        grantDate:
+          type: string
+          format: date
+          nullable: true
+        status:
+          type: string
+          enum: [PENDING, GRANTED, ABANDONED, EXPIRED]
+        patentType:
+          type: string
+        inventors:
+          type: array
+          items:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+        assignees:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              country:
+                type: string
+        cpcClassifications:
+          type: array
+          items:
+            type: string
+
+    PatentApplication:
+      type: object
+      properties:
+        applicationNumber:
+          type: string
+        title:
+          type: string
+        abstract:
+          type: string
+        filingDate:
+          type: string
+          format: date
+        publicationDate:
+          type: string
+          format: date
+          nullable: true
+        status:
+          type: string
+        patentType:
+          type: string
+        inventors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Inventor'
+        assignees:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assignee'
+        cpcClassifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Classification'
+        claims:
+          type: array
+          items:
+            type: object
+            properties:
+              claimNumber:
+                type: integer
+              claimType:
+                type: string
+                enum: [INDEPENDENT, DEPENDENT]
+              claimText:
+                type: string
+        prosecutionHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProsecutionEvent'
+
+    GrantedPatent:
+      allOf:
+        - $ref: '#/components/schemas/PatentApplication'
+        - type: object
+          properties:
+            patentNumber:
+              type: string
+            grantDate:
+              type: string
+              format: date
+            expirationDate:
+              type: string
+              format: date
+
+    Inventor:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+
+    Assignee:
+      type: object
+      properties:
+        name:
+          type: string
+        entityType:
+          type: string
+          enum: [INDIVIDUAL, COMPANY, UNIVERSITY, GOVERNMENT]
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+
+    Classification:
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+        classificationType:
+          type: string
+          enum: [CPC, USPC, IPC]
+
+    ProsecutionEvent:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        eventCode:
+          type: string
+        eventDescription:
+          type: string
+        documentUrl:
+          type: string
+          format: uri
+
+    PTABTrialSearchResponse:
+      type: object
+      properties:
+        trials:
+          type: array
+          items:
+            $ref: '#/components/schemas/PTABTrialSummary'
+        totalResults:
+          type: integer
+        offset:
+          type: integer
+
+    PTABTrialSummary:
+      type: object
+      properties:
+        trialNumber:
+          type: string
+        proceedingType:
+          type: string
+          enum: [IPR, PGR, CBM, DER, POP]
+        status:
+          type: string
+        patentNumber:
+          type: string
+        petitionerName:
+          type: string
+        patentOwnerName:
+          type: string
+        filingDate:
+          type: string
+          format: date
+        institutionDate:
+          type: string
+          format: date
+          nullable: true
+        finalDecisionDate:
+          type: string
+          format: date
+          nullable: true
+
+    PTABTrial:
+      allOf:
+        - $ref: '#/components/schemas/PTABTrialSummary'
+        - type: object
+          properties:
+            contestedClaims:
+              type: array
+              items:
+                type: integer
+            groundsOfChallenge:
+              type: array
+              items:
+                type: object
+                properties:
+                  claimNumbers:
+                    type: array
+                    items:
+                      type: integer
+                  priorArtType:
+                    type: string
+                    enum: [ANTICIPATION, OBVIOUSNESS, WRITTEN_DESCRIPTION]
+                  priorArtReferences:
+                    type: array
+                    items:
+                      type: string
+            documents:
+              type: array
+              items:
+                type: object
+                properties:
+                  documentId:
+                    type: string
+                  documentType:
+                    type: string
+                  filedBy:
+                    type: string
+                  filingDate:
+                    type: string
+                    format: date
+                  documentUrl:
+                    type: string
+                    format: uri
+
+    PTABDecisionSearchResponse:
+      type: object
+      properties:
+        decisions:
+          type: array
+          items:
+            type: object
+            properties:
+              trialNumber:
+                type: string
+              decisionType:
+                type: string
+              decisionDate:
+                type: string
+                format: date
+              documentUrl:
+                type: string
+                format: uri
+        totalResults:
+          type: integer
+
+    TrademarkStatus:
+      type: object
+      properties:
+        serialNumber:
+          type: string
+        registrationNumber:
+          type: string
+          nullable: true
+        markLiteralElements:
+          type: string
+          description: Text elements of the mark
+        status:
+          type: string
+        statusCode:
+          type: string
+        statusDate:
+          type: string
+          format: date
+        filingDate:
+          type: string
+          format: date
+        registrationDate:
+          type: string
+          format: date
+          nullable: true
+        expirationDate:
+          type: string
+          format: date
+          nullable: true
+        applicantName:
+          type: string
+        goodsAndServices:
+          type: string
+        internationalClasses:
+          type: array
+          items:
+            type: integer
+        prosecutionHistory:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              code:
+                type: string
+              description:
+                type: string
+
+    AssignmentSearchResponse:
+      type: object
+      properties:
+        assignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assignment'
+        totalResults:
+          type: integer
+
+    Assignment:
+      type: object
+      properties:
+        reelFrame:
+          type: string
+          description: Reel/Frame assignment identifier
+        conveyanceType:
+          type: string
+        recordDate:
+          type: string
+          format: date
+        executionDate:
+          type: string
+          format: date
+        assignors:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+        assignees:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              address:
+                type: string
+        patents:
+          type: array
+          items:
+            type: object
+            properties:
+              patentNumber:
+                type: string
+              applicationNumber:
+                type: string

@@ -16,6 +16,8 @@ apis:
     type: Documentation
   - url: https://data.uspto.gov/swagger/index.html
     type: OpenAPI
+  - url: openapi/uspto-patent-api-openapi.yml
+    type: OpenAPI
   description: >-
     The USPTO PTAB API provides access to Patent Trial and Appeal Board proceedings data including inter partes reviews, post-grant reviews, and covered business method reviews. Returns trial status, petitions, decisions, and related documents.
 
@@ -33,6 +35,8 @@ apis:
     type: Documentation
   - url: https://developer.uspto.gov/swagger/tsdr-api-v1
     type: OpenAPI
+  - url: openapi/uspto-patent-api-openapi.yml
+    type: OpenAPI
   description: >-
     The USPTO Trademark Status and Document Retrieval (TSDR) API enables programmatic access to trademark case status, filing history, and associated documents. Returns status information for trademark applications and registrations.
 
@@ -49,6 +53,8 @@ apis:
   properties:
   - url: https://developer.uspto.gov/api-catalog
     type: Documentation
+  - url: openapi/uspto-patent-api-openapi.yml
+    type: OpenAPI
   description: >-
     The USPTO Patent Assignment Search API retrieves patent assignment information including ownership transfers, recorded assignments, and assignment history for individual patents and patent portfolios.
 
@@ -104,6 +110,8 @@ apis:
     type: Documentation
   - url: https://developer.uspto.gov/api-catalog
     type: Reference
+  - url: openapi/uspto-patent-api-openapi.yml
+    type: OpenAPI
   description: >-
     The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, patent application status, trademark lookup, and citation data. APIs return XML and JSON responses covering published applications, granted patents, and trademark registrations.
 
@@ -120,6 +128,10 @@ common:
   type: PrivacyPolicy
 - url: https://www.uspto.gov/
   type: Website
+- url: json-schema/uspto-patent-schema.json
+  type: JSONSchema
+- url: json-ld/uspto-context.jsonld
+  type: JSONLDContext
 
 maintainers:
 - name: Kin Lane
