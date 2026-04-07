@@ -23,15 +23,15 @@ security:
   - ApiKeyHeader: []
 
 tags:
+  - name: Assignments
+    description: Patent assignment records
+
   - name: Patents
     description: Patent search and retrieval
   - name: PTAB
     description: Patent Trial and Appeal Board proceedings
   - name: Trademarks
     description: Trademark status and documents
-  - name: Assignments
-    description: Patent assignment records
-
 paths:
   /patent/applications/search:
     get:
