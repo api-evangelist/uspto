@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://data.uspto.gov/api/v1/trademark/status/88123456",
+    "headers": {
+      "X-API-KEY": "your-odp-api-key"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "serialNumber": "88123456",
+      "registrationNumber": null,
+      "markLiteralElements": "NOVACORP",
+      "status": "Pending — Non-Final Action Mailed",
+      "statusCode": "630",
+      "statusDate": "2023-11-15",
+      "filingDate": "2018-09-12",
+      "registrationDate": null,
+      "expirationDate": null,
+      "applicantName": "NovaCorp LLC",
+      "goodsAndServices": "Software as a service (SaaS) for project management",
+      "internationalClasses": [42],
+      "prosecutionHistory": [
+        {
+          "date": "2018-09-12",
+          "code": "NWOS",
+          "description": "New application entered in TRAM"
+        },
+        {
+          "date": "2023-11-15",
+          "code": "CNOA",
+          "description": "Non-final action mailed"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,165 @@
+aid: uspto-vocabulary
+name: USPTO Vocabulary
+description: >-
+  Domain vocabulary and taxonomy for the United States Patent and Trademark Office
+  (USPTO) covering patent prosecution, trademark registration, PTAB proceedings,
+  patent classification systems, assignment terminology, and intellectual property
+  research concepts.
+version: '1.0'
+created: '2026-05-03'
+modified: '2026-05-03'
+
+categories:
+  - name: Patent Application Concepts
+    description: Core concepts in the USPTO patent application process
+    terms:
+      - term: Application Number
+        definition: The 8-digit serial number assigned by the USPTO when a patent application is filed
+        aliases: [Serial Number, Filing Number]
+      - term: Patent Number
+        definition: The identifier assigned to a granted United States patent (e.g., US 11,234,567)
+      - term: Filing Date
+        definition: The date a patent application was submitted to and received by the USPTO
+      - term: Grant Date
+        definition: The date a patent was officially issued by the USPTO
+      - term: Publication Date
+        definition: The date a patent application was published (typically 18 months after earliest filing date)
+      - term: Expiration Date
+        definition: The date a patent's legal protection expires (20 years from effective filing for utility patents)
+      - term: Abstract
+        definition: A brief summary of the patent describing the invention, its purpose, and how it works
+      - term: Claims
+        definition: Numbered statements defining the legal boundaries of patent protection
+      - term: Independent Claim
+        definition: A self-contained claim that does not reference another claim
+      - term: Dependent Claim
+        definition: A claim that references and incorporates the limitations of another claim
+      - term: Specification
+        definition: The written description of the invention including drawings, background, and detailed description
+
+  - name: Patent Types
+    description: Categories of patents issued by the USPTO
+    terms:
+      - term: Utility Patent
+        definition: Patent protecting the functional aspects of a new and useful process, machine, article of manufacture, or composition of matter
+        aliases: [Nonprovisional, Utility Application]
+      - term: Design Patent
+        definition: Patent protecting the ornamental or aesthetic appearance of a functional item
+      - term: Plant Patent
+        definition: Patent protecting a new and distinct, invented or discovered asexually reproduced plant variety
+      - term: Reissue Patent
+        definition: A corrected patent issued to replace a defective patent with broader or narrower claims
+
+  - name: Patent Status Values
+    description: Prosecution status categories for patent applications and grants
+    terms:
+      - term: Pending
+        definition: A patent application that has been filed and is under examination or awaiting examination
+      - term: Granted
+        definition: A patent application that has been approved and the patent has been issued
+      - term: Abandoned
+        definition: A patent application that was not advanced through prosecution and has lapsed
+      - term: Expired
+        definition: A granted patent whose term has ended or for which maintenance fees were not paid
+
+  - name: Patent Classification Systems
+    description: Classification systems used to categorize patents by technology area
+    terms:
+      - term: CPC
+        definition: Cooperative Patent Classification — a joint classification system developed by the USPTO and EPO (European Patent Office)
+        aliases: [Cooperative Patent Classification]
+      - term: USPC
+        definition: United States Patent Classification — the legacy USPTO classification system (largely superseded by CPC)
+        aliases: [United States Patent Classification]
+      - term: IPC
+        definition: International Patent Classification — the WIPO international classification system
+        aliases: [International Patent Classification]
+
+  - name: Prosecution Process Terms
+    description: Terms used in the patent examination and prosecution workflow
+    terms:
+      - term: Office Action
+        definition: A written communication from a USPTO patent examiner raising objections, rejections, or requirements
+        aliases: [OA, Examiner's Communication]
+      - term: Non-Final Action
+        definition: The first substantive office action in prosecution that is not a final rejection
+        aliases: [Non-Final Rejection]
+      - term: Final Action
+        definition: A rejection after which the applicant's right to amend is limited
+        aliases: [Final Rejection]
+      - term: Response to Office Action
+        definition: Applicant's written reply to USPTO examiner objections or rejections
+        aliases: [OA Response, Amendment]
+      - term: Notice of Allowance
+        definition: USPTO communication indicating the patent application has been approved for issuance
+        aliases: [NOA, Allowance]
+      - term: Request for Continued Examination
+        definition: A filing that allows continued prosecution after a final rejection
+        aliases: [RCE]
+      - term: Continuation Application
+        definition: A new application claiming priority to a prior application with the same disclosure
+      - term: Continuation-in-Part
+        definition: A continuation application that adds new matter not disclosed in the prior application
+        aliases: [CIP]
+      - term: Divisional Application
+        definition: A separate application for an independent invention found in a prior application
+      - term: Provisional Application
+        definition: A lower-cost, 12-month placeholder application that establishes a filing date but does not mature into a patent
+
+  - name: PTAB Proceedings
+    description: Patent Trial and Appeal Board proceeding types and terminology
+    terms:
+      - term: Inter Partes Review
+        definition: A USPTO trial proceeding to challenge the validity of an issued patent based on prior art patents or printed publications
+        aliases: [IPR]
+      - term: Post-Grant Review
+        definition: A trial proceeding to challenge the validity of an issued patent on any ground of invalidity
+        aliases: [PGR]
+      - term: Covered Business Method Review
+        definition: A trial proceeding to challenge business method patents under AIA transitional provisions
+        aliases: [CBM]
+      - term: Petition
+        definition: The filing initiating an IPR, PGR, or CBM proceeding
+      - term: Institution Decision
+        definition: The PTAB decision whether to grant or deny the petition to institute a trial
+      - term: Final Written Decision
+        definition: The PTAB's binding decision on the merits of all challenged claims after trial
+      - term: Petitioner
+        definition: The party challenging the validity of an issued patent in a PTAB proceeding
+      - term: Patent Owner
+        definition: The holder of the patent being challenged in a PTAB proceeding
+
+  - name: Assignment Concepts
+    description: Terminology for patent ownership transfers and recorded assignments
+    terms:
+      - term: Assignment
+        definition: A transfer of all rights, title, and interest in a patent or patent application
+      - term: Assignor
+        definition: The party transferring patent rights
+      - term: Assignee
+        definition: The party receiving patent rights
+      - term: Security Agreement
+        definition: A recorded agreement granting a security interest in a patent as collateral
+      - term: License
+        definition: A recorded permission to practice a patent without transferring ownership
+      - term: Merger
+        definition: A recorded transfer of patent rights resulting from a corporate merger or acquisition
+      - term: Reel/Frame
+        definition: The filing identifier for a recorded assignment document at the USPTO
+
+  - name: IP Research Workflows
+    description: Common research activities using USPTO patent and trademark data
+    terms:
+      - term: Prior Art Search
+        definition: Research to identify existing patents, publications, or public disclosures predating a claimed invention
+        aliases: [Patentability Search]
+      - term: Patent Landscape Analysis
+        definition: Comprehensive mapping of patent activity in a technology domain across time, companies, and geographies
+        aliases: [Patent Portfolio Analysis, Whitespace Analysis]
+      - term: Freedom to Operate
+        definition: Analysis to determine whether a product or process infringes valid, enforceable patent claims
+        aliases: [FTO, Clearance Opinion]
+      - term: Invalidity Search
+        definition: Research to find prior art capable of invalidating specific patent claims
+      - term: Due Diligence
+        definition: IP investigation conducted as part of M&A transactions, licensing, or investment decisions

@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://data.uspto.gov/api/v1/ptab/trials?proceedingType=IPR&status=INSTITUTED&limit=2",
+    "headers": {
+      "X-API-KEY": "your-odp-api-key"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "totalResults": 3847,
+      "offset": 0,
+      "trials": [
+        {
+          "trialNumber": "IPR2023-00145",
+          "proceedingType": "IPR",
+          "status": "INSTITUTED",
+          "patentNumber": "10987654",
+          "petitionerName": "TechCorp Inc.",
+          "patentOwnerName": "InnovateTech LLC",
+          "filingDate": "2023-01-15",
+          "institutionDate": "2023-07-20",
+          "finalDecisionDate": null
+        },
+        {
+          "trialNumber": "IPR2023-00289",
+          "proceedingType": "IPR",
+          "status": "INSTITUTED",
+          "patentNumber": "11123456",
+          "petitionerName": "Global Systems Corp.",
+          "patentOwnerName": "PatentHolder Inc.",
+          "filingDate": "2023-03-08",
+          "institutionDate": "2023-09-12",
+          "finalDecisionDate": null
+        }
+      ]
+    }
+  }
+}

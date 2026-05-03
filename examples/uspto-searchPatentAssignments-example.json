@@ -1,0 +1,48 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://data.uspto.gov/api/v1/patent/assignments/search?assigneeName=Microsoft&conveyanceType=ASSIGNMENT&limit=2",
+    "headers": {
+      "X-API-KEY": "your-odp-api-key"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "totalResults": 28541,
+      "assignments": [
+        {
+          "reelFrame": "055432/0001",
+          "conveyanceType": "ASSIGNMENT",
+          "recordDate": "2021-04-15",
+          "executionDate": "2021-04-12",
+          "assignors": [
+            {"name": "Smith, John D."}
+          ],
+          "assignees": [
+            {"name": "Microsoft Technology Licensing, LLC", "address": "Redmond, WA 98052"}
+          ],
+          "patents": [
+            {"patentNumber": "10876543", "applicationNumber": "16234567"}
+          ]
+        },
+        {
+          "reelFrame": "054321/0089",
+          "conveyanceType": "ASSIGNMENT",
+          "recordDate": "2020-12-01",
+          "executionDate": "2020-11-28",
+          "assignors": [
+            {"name": "TechStartup Inc."}
+          ],
+          "assignees": [
+            {"name": "Microsoft Corporation", "address": "Redmond, WA 98052"}
+          ],
+          "patents": [
+            {"patentNumber": null, "applicationNumber": "17123456"},
+            {"patentNumber": null, "applicationNumber": "17123457"}
+          ]
+        }
+      ]
+    }
+  }
+}

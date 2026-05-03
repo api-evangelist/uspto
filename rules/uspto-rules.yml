@@ -1,0 +1,180 @@
+extends: spectral:oas
+rules:
+  # ── Path conventions ──────────────────────────────────────────────────────────
+
+  uspto-path-versioned:
+    message: "All paths must begin with a version prefix such as /v1/"
+    severity: error
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/[a-z]"
+
+  uspto-path-kebab-case:
+    message: "Path segments must use kebab-case (lowercase, digits, hyphens, or {variables})"
+    severity: warn
+    given: "$.paths[*]~"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(/[a-z0-9-{}]+)+$"
+
+  # ── Operation conventions ─────────────────────────────────────────────────────
+
+  uspto-operation-id-required:
+    message: "Every operation must have an operationId"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: operationId
+      function: truthy
+
+  uspto-operation-id-camel-case:
+    message: "operationId must use camelCase"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  uspto-summary-required:
+    message: "Every operation must have a summary"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: summary
+      function: truthy
+
+  uspto-summary-title-case:
+    message: "Operation summary must use Title Case"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].summary"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z]"
+
+  uspto-description-required:
+    message: "Every operation should have a description"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: description
+      function: truthy
+
+  uspto-tags-required:
+    message: "Every operation must have at least one tag"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: tags
+      function: truthy
+
+  # ── Response conventions ──────────────────────────────────────────────────────
+
+  uspto-response-200-required:
+    message: "GET operations must define a 200 response"
+    severity: error
+    given: "$.paths[*].get"
+    then:
+      field: responses.200
+      function: truthy
+
+  uspto-response-401-recommended:
+    message: "Secured operations should document 401 Unauthorized"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete]"
+    then:
+      field: responses.401
+      function: truthy
+
+  uspto-response-404-recommended:
+    message: "Operations with path parameters should document 404 Not Found"
+    severity: info
+    given: "$.paths[*][get,post,put,patch,delete].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+
+  # ── Parameter conventions ─────────────────────────────────────────────────────
+
+  uspto-parameter-description:
+    message: "All parameters should have a description"
+    severity: warn
+    given: "$.paths[*][get,post,put,patch,delete].parameters[*]"
+    then:
+      field: description
+      function: truthy
+
+  uspto-parameter-schema-required:
+    message: "All parameters must define a schema"
+    severity: error
+    given: "$.paths[*][get,post,put,patch,delete].parameters[*]"
+    then:
+      field: schema
+      function: truthy
+
+  # ── Schema conventions ────────────────────────────────────────────────────────
+
+  uspto-schema-description:
+    message: "Schema component descriptions are recommended"
+    severity: info
+    given: "$.components.schemas[*]"
+    then:
+      field: description
+      function: truthy
+
+  uspto-enum-upper-case:
+    message: "Enum values representing status codes should use UPPER_CASE"
+    severity: info
+    given: "$.components.schemas[*].properties.status"
+    then:
+      field: enum
+      function: truthy
+
+  # ── Security conventions ──────────────────────────────────────────────────────
+
+  uspto-security-defined:
+    message: "API must define security schemes"
+    severity: error
+    given: "$.components.securitySchemes"
+    then:
+      function: truthy
+
+  uspto-global-security:
+    message: "API should define global security requirements"
+    severity: warn
+    given: "$"
+    then:
+      field: security
+      function: truthy
+
+  # ── Info conventions ──────────────────────────────────────────────────────────
+
+  uspto-info-contact:
+    message: "API info must include contact information"
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+
+  uspto-info-license:
+    message: "Government APIs must include a license statement"
+    severity: error
+    given: "$.info"
+    then:
+      field: license
+      function: truthy
+
+  uspto-server-defined:
+    message: "API must define at least one server"
+    severity: error
+    given: "$"
+    then:
+      field: servers
+      function: truthy

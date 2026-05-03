@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://data.uspto.gov/api/v1/patent/applications/search?query=autonomous+vehicle+lidar&assignee=Waymo&limit=2",
+    "headers": {
+      "X-API-KEY": "your-odp-api-key"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "totalResults": 142,
+      "offset": 0,
+      "limit": 2,
+      "results": [
+        {
+          "applicationNumber": "17234561",
+          "patentNumber": null,
+          "title": "Sensor Fusion for Autonomous Vehicle Navigation Using LiDAR Point Cloud Processing",
+          "filingDate": "2021-04-19",
+          "grantDate": null,
+          "status": "PENDING",
+          "patentType": "UTILITY",
+          "inventors": [
+            {"firstName": "Alex", "lastName": "Chen"},
+            {"firstName": "Maria", "lastName": "Gonzalez"}
+          ],
+          "assignees": [
+            {"name": "Waymo LLC", "country": "US"}
+          ],
+          "cpcClassifications": ["B60W2050/0001", "G01S17/931"]
+        },
+        {
+          "applicationNumber": "16987654",
+          "patentNumber": "11234567",
+          "title": "LiDAR-Based Obstacle Detection for Autonomous Driving Systems",
+          "filingDate": "2020-10-22",
+          "grantDate": "2022-02-01",
+          "status": "GRANTED",
+          "patentType": "UTILITY",
+          "inventors": [
+            {"firstName": "James", "lastName": "Park"}
+          ],
+          "assignees": [
+            {"name": "Waymo LLC", "country": "US"}
+          ],
+          "cpcClassifications": ["G01S17/894", "B60W60/0025"]
+        }
+      ]
+    }
+  }
+}

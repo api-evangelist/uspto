@@ -1,0 +1,156 @@
+{
+  "name": "USPTO Patent",
+  "description": "Core data structure for a USPTO patent application or granted patent record",
+  "type": "object",
+  "source": "USPTO Open Data Portal API",
+  "fields": [
+    {
+      "name": "applicationNumber",
+      "type": "string",
+      "format": "8-digit string",
+      "required": true,
+      "description": "USPTO application serial number assigned at filing"
+    },
+    {
+      "name": "patentNumber",
+      "type": "string | null",
+      "required": false,
+      "description": "Granted patent number (null for pending applications). Prefix: US for utility, D for design, PP for plant, RE for reissue"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "required": true,
+      "description": "Patent title as filed with the USPTO"
+    },
+    {
+      "name": "abstract",
+      "type": "string",
+      "required": false,
+      "description": "Abstract describing the invention"
+    },
+    {
+      "name": "filingDate",
+      "type": "string",
+      "format": "date (YYYY-MM-DD)",
+      "required": true,
+      "description": "Date the patent application was filed with the USPTO"
+    },
+    {
+      "name": "publicationDate",
+      "type": "string | null",
+      "format": "date (YYYY-MM-DD)",
+      "required": false,
+      "description": "Pre-grant publication date (18 months after earliest effective filing date for most applications)"
+    },
+    {
+      "name": "grantDate",
+      "type": "string | null",
+      "format": "date (YYYY-MM-DD)",
+      "required": false,
+      "description": "Date the patent was granted, null for pending applications"
+    },
+    {
+      "name": "expirationDate",
+      "type": "string | null",
+      "format": "date (YYYY-MM-DD)",
+      "required": false,
+      "description": "Calculated patent expiration date (20 years from effective filing for utility patents)"
+    },
+    {
+      "name": "status",
+      "type": "string",
+      "required": true,
+      "description": "Current prosecution status",
+      "allowedValues": ["PENDING", "GRANTED", "ABANDONED", "EXPIRED"]
+    },
+    {
+      "name": "patentType",
+      "type": "string",
+      "required": true,
+      "description": "Type of patent application",
+      "allowedValues": ["UTILITY", "DESIGN", "PLANT", "REISSUE"]
+    },
+    {
+      "name": "inventors",
+      "type": "array<Inventor>",
+      "required": false,
+      "description": "Named inventors listed on the patent",
+      "items": {
+        "name": "Inventor",
+        "type": "object",
+        "fields": [
+          {"name": "firstName", "type": "string", "required": false, "description": "Inventor given name"},
+          {"name": "lastName", "type": "string", "required": true, "description": "Inventor family name"},
+          {"name": "city", "type": "string", "required": false, "description": "Inventor city of residence"},
+          {"name": "state", "type": "string", "required": false, "description": "Inventor state of residence"},
+          {"name": "country", "type": "string", "format": "ISO 3166-1 alpha-2", "required": false, "description": "Inventor country of residence"}
+        ]
+      }
+    },
+    {
+      "name": "assignees",
+      "type": "array<Assignee>",
+      "required": false,
+      "description": "Current owners or assignees of the patent rights",
+      "items": {
+        "name": "Assignee",
+        "type": "object",
+        "fields": [
+          {"name": "name", "type": "string", "required": true, "description": "Assignee legal name"},
+          {"name": "entityType", "type": "string", "required": false, "description": "Entity type: INDIVIDUAL, COMPANY, UNIVERSITY, GOVERNMENT"},
+          {"name": "city", "type": "string", "required": false, "description": "Assignee city"},
+          {"name": "state", "type": "string", "required": false, "description": "Assignee state"},
+          {"name": "country", "type": "string", "required": false, "description": "Assignee country"}
+        ]
+      }
+    },
+    {
+      "name": "cpcClassifications",
+      "type": "array<Classification>",
+      "required": false,
+      "description": "Cooperative Patent Classification (CPC) codes assigned by the USPTO",
+      "items": {
+        "name": "Classification",
+        "type": "object",
+        "fields": [
+          {"name": "code", "type": "string", "required": true, "description": "CPC, USPC, or IPC classification code"},
+          {"name": "description", "type": "string", "required": false, "description": "Human-readable classification description"},
+          {"name": "classificationType", "type": "string", "required": false, "description": "Classification system: CPC, USPC, or IPC"}
+        ]
+      }
+    },
+    {
+      "name": "claims",
+      "type": "array<Claim>",
+      "required": false,
+      "description": "Patent claims defining the legal scope of protection",
+      "items": {
+        "name": "Claim",
+        "type": "object",
+        "fields": [
+          {"name": "claimNumber", "type": "integer", "required": true, "description": "Claim number (1-based)"},
+          {"name": "claimType", "type": "string", "required": true, "description": "Claim type: INDEPENDENT or DEPENDENT"},
+          {"name": "dependsOn", "type": "integer | null", "required": false, "description": "Parent claim number for dependent claims"},
+          {"name": "claimText", "type": "string", "required": true, "description": "Full text of the claim as filed"}
+        ]
+      }
+    },
+    {
+      "name": "prosecutionHistory",
+      "type": "array<ProsecutionEvent>",
+      "required": false,
+      "description": "Chronological record of USPTO examiner actions and applicant responses",
+      "items": {
+        "name": "ProsecutionEvent",
+        "type": "object",
+        "fields": [
+          {"name": "date", "type": "string", "format": "date (YYYY-MM-DD)", "required": true, "description": "Date of the action"},
+          {"name": "eventCode", "type": "string", "required": true, "description": "USPTO event code"},
+          {"name": "eventDescription", "type": "string", "required": true, "description": "Description of the action"},
+          {"name": "documentUrl", "type": "string", "format": "uri", "required": false, "description": "URL to download the associated document"}
+        ]
+      }
+    }
+  ]
+}
