@@ -1,270 +1,489 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
   label: USPTO Patent Research
-  description: >-
-    Workflow capability for patent and trademark research using USPTO Open Data
-    Portal APIs. Supports IP attorneys, patent engineers, researchers, and
-    business analysts conducting prior art searches, patent landscape analysis,
-    PTAB litigation monitoring, trademark clearance, and ownership due diligence
-    through a unified REST and MCP interface.
+  description: Workflow capability for patent and trademark research using USPTO Open Data Portal APIs. Supports IP attorneys,
+    patent engineers, researchers, and business analysts conducting prior art searches, patent landscape analysis, PTAB litigation
+    monitoring, trademark clearance, and ownership due diligence through a unified REST and MCP interface.
   tags:
-    - Due Diligence
-    - Government
-    - Intellectual Property
-    - Open Data
-    - Patent Research
-    - Patents
-    - Prior Art
-    - PTAB
-    - Regulatory
-    - Trademarks
-    - USPTO
-  created: "2026-05-03"
-  modified: "2026-05-03"
-
+  - Due Diligence
+  - Government
+  - Intellectual Property
+  - Open Data
+  - Patent Research
+  - Patents
+  - Prior Art
+  - PTAB
+  - Regulatory
+  - Trademarks
+  - USPTO
+  created: '2026-05-03'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      USPTO_API_KEY: USPTO_API_KEY
-
+- namespace: env
+  keys:
+    USPTO_API_KEY: USPTO_API_KEY
 capability:
   consumes:
-    - import: uspto-patent-api
-      location: ./shared/uspto-patent-api.yaml
-
+  - type: http
+    namespace: uspto-patent-api
+    baseUri: https://data.uspto.gov/api/v1
+    description: USPTO Open Data Portal REST API
+    authentication:
+      type: apikey
+      key: X-API-KEY
+      value: '{{USPTO_API_KEY}}'
+      placement: header
+    resources:
+    - name: patent-applications
+      path: /patent/applications
+      description: Patent application search and retrieval
+      operations:
+      - name: search-patent-applications
+        method: GET
+        description: Search USPTO patent applications by keyword, inventor, assignee, and other criteria
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          required: false
+          description: Keyword search query
+        - name: inventor
+          in: query
+          type: string
+          required: false
+          description: Inventor name
+        - name: assignee
+          in: query
+          type: string
+          required: false
+          description: Assignee company name
+        - name: filingDateStart
+          in: query
+          type: string
+          required: false
+          description: Filing date range start (YYYY-MM-DD)
+        - name: filingDateEnd
+          in: query
+          type: string
+          required: false
+          description: Filing date range end (YYYY-MM-DD)
+        - name: cpcClassification
+          in: query
+          type: string
+          required: false
+          description: CPC classification code
+        - name: patentType
+          in: query
+          type: string
+          required: false
+          description: Patent type (UTILITY, DESIGN, PLANT, REISSUE)
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Application status
+        - name: offset
+          in: query
+          type: integer
+          required: false
+          description: Pagination offset
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Results per page (max 100)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-patent-application
+        method: GET
+        description: Get full details for a specific patent application
+        inputParameters:
+        - name: applicationNumber
+          in: path
+          type: string
+          required: true
+          description: USPTO application number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: patent-grants
+      path: /patent/grants
+      description: Granted patent retrieval
+      operations:
+      - name: get-granted-patent
+        method: GET
+        description: Get full details for a granted USPTO patent by patent number
+        inputParameters:
+        - name: patentNumber
+          in: path
+          type: string
+          required: true
+          description: USPTO patent number
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ptab-trials
+      path: /ptab/trials
+      description: PTAB trial proceeding search and retrieval
+      operations:
+      - name: search-ptab-trials
+        method: GET
+        description: Search PTAB IPR, PGR, and CBM trial proceedings
+        inputParameters:
+        - name: patentNumber
+          in: query
+          type: string
+          required: false
+          description: Challenged patent number
+        - name: petitionerName
+          in: query
+          type: string
+          required: false
+          description: Petitioner company name
+        - name: patentOwnerName
+          in: query
+          type: string
+          required: false
+          description: Patent owner name
+        - name: proceedingType
+          in: query
+          type: string
+          required: false
+          description: Proceeding type (IPR, PGR, CBM)
+        - name: status
+          in: query
+          type: string
+          required: false
+          description: Trial status
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-ptab-trial
+        method: GET
+        description: Get full details for a specific PTAB trial proceeding
+        inputParameters:
+        - name: trialNumber
+          in: path
+          type: string
+          required: true
+          description: PTAB trial number (e.g., IPR2023-00001)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: ptab-decisions
+      path: /ptab/decisions
+      description: PTAB decision search
+      operations:
+      - name: search-ptab-decisions
+        method: GET
+        description: Search PTAB decisions by trial number, date, or keyword
+        inputParameters:
+        - name: searchText
+          in: query
+          type: string
+          required: false
+          description: Full-text search in decision documents
+        - name: proceedingType
+          in: query
+          type: string
+          required: false
+          description: Proceeding type
+        - name: decisionType
+          in: query
+          type: string
+          required: false
+          description: Decision type
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: trademark-status
+      path: /trademark/status
+      description: Trademark status lookup
+      operations:
+      - name: get-trademark-status
+        method: GET
+        description: Get current status and prosecution history for a trademark by serial number
+        inputParameters:
+        - name: serialNumber
+          in: path
+          type: string
+          required: true
+          description: Trademark serial number (8 digits)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: patent-assignments
+      path: /patent/assignments
+      description: Patent assignment search
+      operations:
+      - name: search-patent-assignments
+        method: GET
+        description: Search recorded patent assignments and ownership transfers
+        inputParameters:
+        - name: patentNumber
+          in: query
+          type: string
+          required: false
+          description: Patent number
+        - name: assignorName
+          in: query
+          type: string
+          required: false
+          description: Assignor name
+        - name: assigneeName
+          in: query
+          type: string
+          required: false
+          description: Assignee name
+        - name: conveyanceType
+          in: query
+          type: string
+          required: false
+          description: Assignment type
+        - name: limit
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: patent-research-api
-      description: "Unified REST API for USPTO patent and trademark research workflows."
-      resources:
-        - path: /v1/patents
-          name: patent-search
-          description: Search patent applications and granted patents
-          operations:
-            - method: GET
-              name: search-patent-applications
-              description: Search USPTO patent applications by keyword, inventor, assignee, or CPC class
-              call: "uspto-patent-api.search-patent-applications"
-              with:
-                query: "rest.query"
-                inventor: "rest.inventor"
-                assignee: "rest.assignee"
-                cpcClassification: "rest.cpcClassification"
-                patentType: "rest.patentType"
-                status: "rest.status"
-                filingDateStart: "rest.filingDateStart"
-                filingDateEnd: "rest.filingDateEnd"
-                limit: "rest.limit"
-                offset: "rest.offset"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/patents/{applicationNumber}
-          name: patent-application-detail
-          description: Retrieve full patent application details
-          operations:
-            - method: GET
-              name: get-patent-application
-              description: Get complete patent application with claims, inventors, and prosecution history
-              call: "uspto-patent-api.get-patent-application"
-              with:
-                applicationNumber: "rest.applicationNumber"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/grants/{patentNumber}
-          name: granted-patent
-          description: Retrieve a granted patent
-          operations:
-            - method: GET
-              name: get-granted-patent
-              description: Get full details for a granted patent
-              call: "uspto-patent-api.get-granted-patent"
-              with:
-                patentNumber: "rest.patentNumber"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/ptab/trials
-          name: ptab-trials
-          description: PTAB trial proceedings search
-          operations:
-            - method: GET
-              name: search-ptab-trials
-              description: Search PTAB IPR, PGR, and CBM proceedings
-              call: "uspto-patent-api.search-ptab-trials"
-              with:
-                patentNumber: "rest.patentNumber"
-                petitionerName: "rest.petitionerName"
-                proceedingType: "rest.proceedingType"
-                status: "rest.status"
-                limit: "rest.limit"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/ptab/trials/{trialNumber}
-          name: ptab-trial-detail
-          description: Get PTAB trial details
-          operations:
-            - method: GET
-              name: get-ptab-trial
-              description: Get complete PTAB trial information
-              call: "uspto-patent-api.get-ptab-trial"
-              with:
-                trialNumber: "rest.trialNumber"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/trademarks/{serialNumber}/status
-          name: trademark-status
-          description: Trademark status lookup
-          operations:
-            - method: GET
-              name: get-trademark-status
-              description: Get trademark application status and prosecution history
-              call: "uspto-patent-api.get-trademark-status"
-              with:
-                serialNumber: "rest.serialNumber"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/assignments
-          name: patent-assignments
-          description: Patent assignment search
-          operations:
-            - method: GET
-              name: search-patent-assignments
-              description: Search recorded patent assignments and ownership transfers
-              call: "uspto-patent-api.search-patent-assignments"
-              with:
-                patentNumber: "rest.patentNumber"
-                assigneeName: "rest.assigneeName"
-                conveyanceType: "rest.conveyanceType"
-                limit: "rest.limit"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: patent-research-mcp
-      transport: http
-      description: "MCP server for AI-assisted patent and trademark research."
-      tools:
-        - name: search-patents
-          description: >-
-            Search the USPTO patent database by keyword, inventor name, assignee,
-            CPC classification code, filing date range, or patent type. Use for
-            prior art searches and patent landscape analysis.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "uspto-patent-api.search-patent-applications"
-          with:
-            query: "tools.query"
-            inventor: "tools.inventor"
-            assignee: "tools.assignee"
-            cpcClassification: "tools.cpcClassification"
-            limit: "tools.limit"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-patent-application-details
-          description: >-
-            Retrieve complete details for a patent application including claims,
-            inventors, assignees, CPC classifications, and prosecution history.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "uspto-patent-api.get-patent-application"
-          with:
-            applicationNumber: "tools.applicationNumber"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-granted-patent
-          description: >-
-            Retrieve full details for a granted USPTO patent including claims,
-            grant date, expiration date, and complete bibliographic data.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "uspto-patent-api.get-granted-patent"
-          with:
-            patentNumber: "tools.patentNumber"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: search-ptab-trials
-          description: >-
-            Search PTAB inter partes review (IPR), post-grant review (PGR),
-            and covered business method (CBM) trials. Useful for patent validity
-            research and litigation monitoring.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "uspto-patent-api.search-ptab-trials"
-          with:
-            patentNumber: "tools.patentNumber"
-            petitionerName: "tools.petitionerName"
-            proceedingType: "tools.proceedingType"
-            status: "tools.status"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-ptab-trial-details
-          description: >-
-            Get complete PTAB trial information including contested claims,
-            grounds of challenge, prior art references, and filed documents.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "uspto-patent-api.get-ptab-trial"
-          with:
-            trialNumber: "tools.trialNumber"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-trademark-status
-          description: >-
-            Look up the current status and prosecution history for a USPTO trademark
-            application by serial number. Use for trademark clearance research.
-          hints:
-            readOnly: true
-            idempotent: true
-          call: "uspto-patent-api.get-trademark-status"
-          with:
-            serialNumber: "tools.serialNumber"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: search-patent-assignments
-          description: >-
-            Search recorded patent assignments to trace ownership history and
-            current ownership of patents. Useful for M&A due diligence and
-            freedom-to-operate analysis.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "uspto-patent-api.search-patent-assignments"
-          with:
-            patentNumber: "tools.patentNumber"
-            assigneeName: "tools.assigneeName"
-            conveyanceType: "tools.conveyanceType"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: patent-research-api
+    description: Unified REST API for USPTO patent and trademark research workflows.
+    resources:
+    - path: /v1/patents
+      name: patent-search
+      description: Search patent applications and granted patents
+      operations:
+      - method: GET
+        name: search-patent-applications
+        description: Search USPTO patent applications by keyword, inventor, assignee, or CPC class
+        call: uspto-patent-api.search-patent-applications
+        with:
+          query: rest.query
+          inventor: rest.inventor
+          assignee: rest.assignee
+          cpcClassification: rest.cpcClassification
+          patentType: rest.patentType
+          status: rest.status
+          filingDateStart: rest.filingDateStart
+          filingDateEnd: rest.filingDateEnd
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/patents/{applicationNumber}
+      name: patent-application-detail
+      description: Retrieve full patent application details
+      operations:
+      - method: GET
+        name: get-patent-application
+        description: Get complete patent application with claims, inventors, and prosecution history
+        call: uspto-patent-api.get-patent-application
+        with:
+          applicationNumber: rest.applicationNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/grants/{patentNumber}
+      name: granted-patent
+      description: Retrieve a granted patent
+      operations:
+      - method: GET
+        name: get-granted-patent
+        description: Get full details for a granted patent
+        call: uspto-patent-api.get-granted-patent
+        with:
+          patentNumber: rest.patentNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ptab/trials
+      name: ptab-trials
+      description: PTAB trial proceedings search
+      operations:
+      - method: GET
+        name: search-ptab-trials
+        description: Search PTAB IPR, PGR, and CBM proceedings
+        call: uspto-patent-api.search-ptab-trials
+        with:
+          patentNumber: rest.patentNumber
+          petitionerName: rest.petitionerName
+          proceedingType: rest.proceedingType
+          status: rest.status
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ptab/trials/{trialNumber}
+      name: ptab-trial-detail
+      description: Get PTAB trial details
+      operations:
+      - method: GET
+        name: get-ptab-trial
+        description: Get complete PTAB trial information
+        call: uspto-patent-api.get-ptab-trial
+        with:
+          trialNumber: rest.trialNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/trademarks/{serialNumber}/status
+      name: trademark-status
+      description: Trademark status lookup
+      operations:
+      - method: GET
+        name: get-trademark-status
+        description: Get trademark application status and prosecution history
+        call: uspto-patent-api.get-trademark-status
+        with:
+          serialNumber: rest.serialNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/assignments
+      name: patent-assignments
+      description: Patent assignment search
+      operations:
+      - method: GET
+        name: search-patent-assignments
+        description: Search recorded patent assignments and ownership transfers
+        call: uspto-patent-api.search-patent-assignments
+        with:
+          patentNumber: rest.patentNumber
+          assigneeName: rest.assigneeName
+          conveyanceType: rest.conveyanceType
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: patent-research-mcp
+    transport: http
+    description: MCP server for AI-assisted patent and trademark research.
+    tools:
+    - name: search-patents
+      description: Search the USPTO patent database by keyword, inventor name, assignee, CPC classification code, filing date
+        range, or patent type. Use for prior art searches and patent landscape analysis.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: uspto-patent-api.search-patent-applications
+      with:
+        query: tools.query
+        inventor: tools.inventor
+        assignee: tools.assignee
+        cpcClassification: tools.cpcClassification
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-patent-application-details
+      description: Retrieve complete details for a patent application including claims, inventors, assignees, CPC classifications,
+        and prosecution history.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: uspto-patent-api.get-patent-application
+      with:
+        applicationNumber: tools.applicationNumber
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-granted-patent
+      description: Retrieve full details for a granted USPTO patent including claims, grant date, expiration date, and complete
+        bibliographic data.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: uspto-patent-api.get-granted-patent
+      with:
+        patentNumber: tools.patentNumber
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-ptab-trials
+      description: Search PTAB inter partes review (IPR), post-grant review (PGR), and covered business method (CBM) trials.
+        Useful for patent validity research and litigation monitoring.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: uspto-patent-api.search-ptab-trials
+      with:
+        patentNumber: tools.patentNumber
+        petitionerName: tools.petitionerName
+        proceedingType: tools.proceedingType
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-ptab-trial-details
+      description: Get complete PTAB trial information including contested claims, grounds of challenge, prior art references,
+        and filed documents.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: uspto-patent-api.get-ptab-trial
+      with:
+        trialNumber: tools.trialNumber
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-trademark-status
+      description: Look up the current status and prosecution history for a USPTO trademark application by serial number.
+        Use for trademark clearance research.
+      hints:
+        readOnly: true
+        idempotent: true
+      call: uspto-patent-api.get-trademark-status
+      with:
+        serialNumber: tools.serialNumber
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-patent-assignments
+      description: Search recorded patent assignments to trace ownership history and current ownership of patents. Useful
+        for M&A due diligence and freedom-to-operate analysis.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: uspto-patent-api.search-patent-assignments
+      with:
+        patentNumber: tools.patentNumber
+        assigneeName: tools.assigneeName
+        conveyanceType: tools.conveyanceType
+      outputParameters:
+      - type: object
+        mapping: $.
