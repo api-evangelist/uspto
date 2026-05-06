@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,174 +9,55 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: USPTO
 providerId: uspto
-publisherName: USPTO
-serviceCategory: API
+publisherName: U.S. Patent and Trademark Office
+serviceCategory: Government Open Data
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Government
+  - Federal Government
   - Intellectual Property
   - Open Data
-  - Patents
-  - Regulatory
-  - Trademarks
-  - USPTO
   - FinOps
-  - Cost Management
   - FOCUS
-description: FinOps framework definition for the USPTO API surface. Provides a FOCUS-aligned mapping for
-  cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+description: 'FinOps shape for USPTO: free public patent/trademark APIs. There is no commercial billing surface. FinOps centers on key stewardship and using the Bulk Data Storage System for high-volume needs.'
+sources:
+  - https://developer.uspto.gov/
+  - https://data.uspto.gov/
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Free Public Service
+  billingFrequency: None
   billingCurrency: USD
-  chargeCategories:
-    - Usage
-    - Purchase
-    - Tax
-    - Credit
-    - Adjustment
-  chargeFrequency: Recurring
+  chargeCategories: []
 focusColumns:
-  ServiceName: USPTO
-  ServiceCategory: Developer Tools / API
-  ProviderName: USPTO
-  PublisherName: USPTO
-  InvoiceIssuerName: USPTO
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: USPTO APIs
+  ServiceCategory: Government Open Data
+  ProviderName: U.S. Patent and Trademark Office
+  PublisherName: U.S. Patent and Trademark Office
+  InvoiceIssuerName: U.S. Patent and Trademark Office
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
   - name: api_requests
-    description: Count of billable API requests
+    description: Requests against USPTO APIs (counts against per-API key-usage policy where applicable)
     unit: request
     aggregation: sum
     dimensions:
       - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
-    aggregation: sum
-    dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: USPTO Patent & Trademark API
-    baseURL: https://data.uspto.gov/api/v1
-    tags:
-      - Assignments
-      - Government
-      - Patents
-      - PTAB
-      - Regulatory
-      - Trademarks
-    serviceName: USPTO Patent & Trademark API
-    serviceCategory: API
-  - name: USPTO Patent Trial and Appeal Board (PTAB) API
-    baseURL: ''
-    tags:
-      - Government
-      - PTAB
-      - Patents
-      - Regulatory
-    serviceName: USPTO Patent Trial and Appeal Board (PTAB) API
-    serviceCategory: API
-  - name: USPTO Trademark Status and Document Retrieval (TSDR) API
-    baseURL: ''
-    tags:
-      - Government
-      - Regulatory
-      - Trademarks
-    serviceName: USPTO Trademark Status and Document Retrieval (TSDR) API
-    serviceCategory: API
-  - name: USPTO Patent Assignment Search API
-    baseURL: ''
-    tags:
-      - Assignments
-      - Government
-      - Patents
-      - Regulatory
-    serviceName: USPTO Patent Assignment Search API
-    serviceCategory: API
-  - name: USPTO Office Action Text Retrieval API
-    baseURL: ''
-    tags:
-      - Government
-      - Office Actions
-      - Patents
-      - Regulatory
-    serviceName: USPTO Office Action Text Retrieval API
-    serviceCategory: API
-  - name: USPTO Enriched Citation API
-    baseURL: ''
-    tags:
-      - Citations
-      - Government
-      - Patents
-      - Regulatory
-    serviceName: USPTO Enriched Citation API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - api_key
+  - name: bulk_downloads
+    description: Bulk Data Storage System downloads (preferred for high-volume access)
+    unit: file
+    aggregation: count
+principles:
+  - name: Visibility
+    description: Track usage via the per-API key-usage policy and FAQ; USPTO does not provide a centralized usage dashboard, so consumers should log their own request counts.
+  - name: Allocation
+    description: Allocate by application by issuing distinct USPTO API keys per app/team for APIs that require them (e.g. TSDR).
+  - name: Optimization
+    description: Use the Bulk Data Storage System for catalog-scale ingestion instead of per-record API polling; cache responses; align with the data.uspto.gov migration before May 29, 2026.
+  - name: Accountability
+    description: Owner is the application team holding the key; review key-usage FAQs and 429 responses to confirm the integration is operating within documented bounds.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
