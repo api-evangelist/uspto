@@ -1,0 +1,82 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: USPTO Patent & Trademark API — Trademarks
+  description: 'USPTO Patent & Trademark API — Trademarks. 1 operations. Lead operation: Get trademark application status.
+    Self-contained Naftiko capability covering one Uspto business surface.'
+  tags:
+  - Uspto
+  - Trademarks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    USPTO_API_KEY: USPTO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: patent-trademarks
+    baseUri: https://data.uspto.gov/api/v1
+    description: USPTO Patent & Trademark API — Trademarks business capability. Self-contained, no shared references.
+    resources:
+    - name: trademark-status-serialNumber
+      path: /trademark/status/{serialNumber}
+      operations:
+      - name: gettrademarkstatus
+        method: GET
+        description: Get trademark application status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: serialNumber
+          in: path
+          type: string
+          description: Trademark serial number (8 digits)
+          required: true
+    authentication:
+      type: apikey
+      key: X-API-KEY
+      value: '{{env.USPTO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: patent-trademarks-rest
+    port: 8080
+    description: REST adapter for USPTO Patent & Trademark API — Trademarks. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/trademark/status/{serialnumber}
+      name: trademark-status-serialnumber
+      description: REST surface for trademark-status-serialNumber.
+      operations:
+      - method: GET
+        name: gettrademarkstatus
+        description: Get trademark application status
+        call: patent-trademarks.gettrademarkstatus
+        with:
+          serialNumber: rest.serialNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: patent-trademarks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for USPTO Patent & Trademark API — Trademarks. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-trademark-application-status
+      description: Get trademark application status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: patent-trademarks.gettrademarkstatus
+      with:
+        serialNumber: tools.serialNumber
+      outputParameters:
+      - type: object
+        mapping: $.

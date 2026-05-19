@@ -1,0 +1,115 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: USPTO Patent & Trademark API — Assignments
+  description: 'USPTO Patent & Trademark API — Assignments. 1 operations. Lead operation: Search patent assignments. Self-contained
+    Naftiko capability covering one Uspto business surface.'
+  tags:
+  - Uspto
+  - Assignments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    USPTO_API_KEY: USPTO_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: patent-assignments
+    baseUri: https://data.uspto.gov/api/v1
+    description: USPTO Patent & Trademark API — Assignments business capability. Self-contained, no shared references.
+    resources:
+    - name: patent-assignments-search
+      path: /patent/assignments/search
+      operations:
+      - name: searchpatentassignments
+        method: GET
+        description: Search patent assignments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: patentNumber
+          in: query
+          type: string
+        - name: assignorName
+          in: query
+          type: string
+        - name: assigneeName
+          in: query
+          type: string
+        - name: conveyanceType
+          in: query
+          type: string
+        - name: dateStart
+          in: query
+          type: string
+        - name: dateEnd
+          in: query
+          type: string
+        - name: offset
+          in: query
+          type: integer
+        - name: limit
+          in: query
+          type: integer
+    authentication:
+      type: apikey
+      key: X-API-KEY
+      value: '{{env.USPTO_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: patent-assignments-rest
+    port: 8080
+    description: REST adapter for USPTO Patent & Trademark API — Assignments. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/patent/assignments/search
+      name: patent-assignments-search
+      description: REST surface for patent-assignments-search.
+      operations:
+      - method: GET
+        name: searchpatentassignments
+        description: Search patent assignments
+        call: patent-assignments.searchpatentassignments
+        with:
+          patentNumber: rest.patentNumber
+          assignorName: rest.assignorName
+          assigneeName: rest.assigneeName
+          conveyanceType: rest.conveyanceType
+          dateStart: rest.dateStart
+          dateEnd: rest.dateEnd
+          offset: rest.offset
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: patent-assignments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for USPTO Patent & Trademark API — Assignments. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: search-patent-assignments
+      description: Search patent assignments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: patent-assignments.searchpatentassignments
+      with:
+        patentNumber: tools.patentNumber
+        assignorName: tools.assignorName
+        assigneeName: tools.assigneeName
+        conveyanceType: tools.conveyanceType
+        dateStart: tools.dateStart
+        dateEnd: tools.dateEnd
+        offset: tools.offset
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
