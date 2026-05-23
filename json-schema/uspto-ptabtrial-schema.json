@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PTABTrial",
+  "title": "PTABTrial",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/PTABTrialSummary"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "contestedClaims": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "groundsOfChallenge": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "claimNumbers": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                }
+              },
+              "priorArtType": {
+                "type": "string",
+                "enum": [
+                  "ANTICIPATION",
+                  "OBVIOUSNESS",
+                  "WRITTEN_DESCRIPTION"
+                ]
+              },
+              "priorArtReferences": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "documents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "documentId": {
+                "type": "string"
+              },
+              "documentType": {
+                "type": "string"
+              },
+              "filedBy": {
+                "type": "string"
+              },
+              "filingDate": {
+                "type": "string",
+                "format": "date"
+              },
+              "documentUrl": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

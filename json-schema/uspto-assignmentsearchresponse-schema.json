@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AssignmentSearchResponse",
+  "title": "AssignmentSearchResponse",
+  "type": "object",
+  "properties": {
+    "assignments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Assignment"
+      }
+    },
+    "totalResults": {
+      "type": "integer"
+    }
+  }
+}

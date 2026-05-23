@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PTABTrialSearchResponse",
+  "title": "PTABTrialSearchResponse",
+  "type": "object",
+  "properties": {
+    "trials": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PTABTrialSummary"
+      }
+    },
+    "totalResults": {
+      "type": "integer"
+    },
+    "offset": {
+      "type": "integer"
+    }
+  }
+}

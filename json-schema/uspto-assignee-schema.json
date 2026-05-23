@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Assignee",
+  "title": "Assignee",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "entityType": {
+      "type": "string",
+      "enum": [
+        "INDIVIDUAL",
+        "COMPANY",
+        "UNIVERSITY",
+        "GOVERNMENT"
+      ]
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    }
+  }
+}

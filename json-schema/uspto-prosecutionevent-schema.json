@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ProsecutionEvent",
+  "title": "ProsecutionEvent",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "eventCode": {
+      "type": "string"
+    },
+    "eventDescription": {
+      "type": "string"
+    },
+    "documentUrl": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}

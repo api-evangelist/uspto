@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PatentSummary",
+  "title": "PatentSummary",
+  "type": "object",
+  "properties": {
+    "applicationNumber": {
+      "type": "string"
+    },
+    "patentNumber": {
+      "type": "string",
+      "nullable": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "filingDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "grantDate": {
+      "type": "string",
+      "format": "date",
+      "nullable": true
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "GRANTED",
+        "ABANDONED",
+        "EXPIRED"
+      ]
+    },
+    "patentType": {
+      "type": "string"
+    },
+    "inventors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assignees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "cpcClassifications": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

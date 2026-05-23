@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TrademarkStatus",
+  "title": "TrademarkStatus",
+  "type": "object",
+  "properties": {
+    "serialNumber": {
+      "type": "string"
+    },
+    "registrationNumber": {
+      "type": "string",
+      "nullable": true
+    },
+    "markLiteralElements": {
+      "type": "string",
+      "description": "Text elements of the mark"
+    },
+    "status": {
+      "type": "string"
+    },
+    "statusCode": {
+      "type": "string"
+    },
+    "statusDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "filingDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "registrationDate": {
+      "type": "string",
+      "format": "date",
+      "nullable": true
+    },
+    "expirationDate": {
+      "type": "string",
+      "format": "date",
+      "nullable": true
+    },
+    "applicantName": {
+      "type": "string"
+    },
+    "goodsAndServices": {
+      "type": "string"
+    },
+    "internationalClasses": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "prosecutionHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "code": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

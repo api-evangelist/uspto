@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PTABDecisionSearchResponse",
+  "title": "PTABDecisionSearchResponse",
+  "type": "object",
+  "properties": {
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "trialNumber": {
+            "type": "string"
+          },
+          "decisionType": {
+            "type": "string"
+          },
+          "decisionDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "documentUrl": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "totalResults": {
+      "type": "integer"
+    }
+  }
+}

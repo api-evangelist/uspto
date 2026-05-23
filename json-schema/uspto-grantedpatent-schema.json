@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GrantedPatent",
+  "title": "GrantedPatent",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/PatentApplication"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "patentNumber": {
+          "type": "string"
+        },
+        "grantDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "expirationDate": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    }
+  ]
+}

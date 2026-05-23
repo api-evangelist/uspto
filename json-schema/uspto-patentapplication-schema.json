@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PatentApplication",
+  "title": "PatentApplication",
+  "type": "object",
+  "properties": {
+    "applicationNumber": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "abstract": {
+      "type": "string"
+    },
+    "filingDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "publicationDate": {
+      "type": "string",
+      "format": "date",
+      "nullable": true
+    },
+    "status": {
+      "type": "string"
+    },
+    "patentType": {
+      "type": "string"
+    },
+    "inventors": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Inventor"
+      }
+    },
+    "assignees": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Assignee"
+      }
+    },
+    "cpcClassifications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Classification"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claimNumber": {
+            "type": "integer"
+          },
+          "claimType": {
+            "type": "string",
+            "enum": [
+              "INDEPENDENT",
+              "DEPENDENT"
+            ]
+          },
+          "claimText": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "prosecutionHistory": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/ProsecutionEvent"
+      }
+    }
+  }
+}

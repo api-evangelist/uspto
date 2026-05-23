@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Assignment",
+  "title": "Assignment",
+  "type": "object",
+  "properties": {
+    "reelFrame": {
+      "type": "string",
+      "description": "Reel/Frame assignment identifier"
+    },
+    "conveyanceType": {
+      "type": "string"
+    },
+    "recordDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "executionDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "assignors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assignees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "patents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "patentNumber": {
+            "type": "string"
+          },
+          "applicationNumber": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "provider": "USPTO",
+  "providerId": "uspto",
+  "kind": "json-structure",
+  "description": "Structural overview of the USPTO API surface; extracted from openapi/.",
+  "schemaCount": 15,
+  "operationCount": 8,
+  "schemas": [
+    {
+      "name": "PatentSearchResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "PatentSummary",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "PatentApplication",
+      "type": "object",
+      "propertyCount": 12,
+      "required": []
+    },
+    {
+      "name": "GrantedPatent",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "Inventor",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Assignee",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Classification",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ProsecutionEvent",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "PTABTrialSearchResponse",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "PTABTrialSummary",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "PTABTrial",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "PTABDecisionSearchResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "TrademarkStatus",
+      "type": "object",
+      "propertyCount": 13,
+      "required": []
+    },
+    {
+      "name": "AssignmentSearchResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Assignment",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/patent/applications/search",
+      "operationId": "searchPatentApplications",
+      "summary": "Search patent applications",
+      "tags": [
+        "Patents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patent/applications/{applicationNumber}",
+      "operationId": "getPatentApplication",
+      "summary": "Get patent application details",
+      "tags": [
+        "Patents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patent/grants/{patentNumber}",
+      "operationId": "getGrantedPatent",
+      "summary": "Get a granted patent",
+      "tags": [
+        "Patents"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/ptab/trials",
+      "operationId": "searchPTABTrials",
+      "summary": "Search PTAB trial proceedings",
+      "tags": [
+        "PTAB"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/ptab/trials/{trialNumber}",
+      "operationId": "getPTABTrial",
+      "summary": "Get PTAB trial details",
+      "tags": [
+        "PTAB"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/ptab/decisions/search",
+      "operationId": "searchPTABDecisions",
+      "summary": "Search PTAB decisions",
+      "tags": [
+        "PTAB"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/trademark/status/{serialNumber}",
+      "operationId": "getTrademarkStatus",
+      "summary": "Get trademark application status",
+      "tags": [
+        "Trademarks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/patent/assignments/search",
+      "operationId": "searchPatentAssignments",
+      "summary": "Search patent assignments",
+      "tags": [
+        "Assignments"
+      ]
+    }
+  ]
+}

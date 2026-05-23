@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PTABTrialSummary",
+  "title": "PTABTrialSummary",
+  "type": "object",
+  "properties": {
+    "trialNumber": {
+      "type": "string"
+    },
+    "proceedingType": {
+      "type": "string",
+      "enum": [
+        "IPR",
+        "PGR",
+        "CBM",
+        "DER",
+        "POP"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "patentNumber": {
+      "type": "string"
+    },
+    "petitionerName": {
+      "type": "string"
+    },
+    "patentOwnerName": {
+      "type": "string"
+    },
+    "filingDate": {
+      "type": "string",
+      "format": "date"
+    },
+    "institutionDate": {
+      "type": "string",
+      "format": "date",
+      "nullable": true
+    },
+    "finalDecisionDate": {
+      "type": "string",
+      "format": "date",
+      "nullable": true
+    }
+  }
+}
