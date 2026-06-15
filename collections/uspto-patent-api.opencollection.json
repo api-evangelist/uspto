@@ -1,0 +1,357 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "USPTO Patent & Trademark API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Patents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search patent applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/patent/applications/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "autonomous vehicle lidar sensor",
+                "type": "query",
+                "description": "Keyword search query"
+              },
+              {
+                "name": "inventor",
+                "value": "",
+                "type": "query",
+                "description": "Inventor name (last name, first name)"
+              },
+              {
+                "name": "assignee",
+                "value": "",
+                "type": "query",
+                "description": "Assignee/applicant company name"
+              },
+              {
+                "name": "filingDateStart",
+                "value": "",
+                "type": "query",
+                "description": "Filing date range start"
+              },
+              {
+                "name": "filingDateEnd",
+                "value": "",
+                "type": "query",
+                "description": "Filing date range end"
+              },
+              {
+                "name": "cpcClassification",
+                "value": "B60W2050/0001",
+                "type": "query",
+                "description": "CPC (Cooperative Patent Classification) code"
+              },
+              {
+                "name": "patentType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches USPTO patent applications by keyword, inventor, assignee, filing date, classification code, and other criteria. Returns application metadata for published and granted patents."
+        },
+        {
+          "info": {
+            "name": "Get patent application details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/patent/applications/:applicationNumber",
+            "params": [
+              {
+                "name": "applicationNumber",
+                "value": "16123456",
+                "type": "path",
+                "description": "USPTO application number (e.g., 16123456)"
+              }
+            ]
+          },
+          "docs": "Returns full metadata for a specific patent application including claims, abstract, inventors, assignees, filing history, and prosecution history."
+        },
+        {
+          "info": {
+            "name": "Get a granted patent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/patent/grants/:patentNumber",
+            "params": [
+              {
+                "name": "patentNumber",
+                "value": "10234567",
+                "type": "path",
+                "description": "USPTO patent number (without US prefix)"
+              }
+            ]
+          },
+          "docs": "Returns full details for a granted United States patent by patent number."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "PTAB",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search PTAB trial proceedings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/ptab/trials",
+            "params": [
+              {
+                "name": "patentNumber",
+                "value": "",
+                "type": "query",
+                "description": "Challenged patent number"
+              },
+              {
+                "name": "petitionerName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "patentOwnerName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "proceedingType",
+                "value": "",
+                "type": "query",
+                "description": "Type of PTAB proceeding"
+              },
+              {
+                "name": "filingDateStart",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filingDateEnd",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches Patent Trial and Appeal Board (PTAB) proceedings including Inter Partes Reviews (IPR), Post-Grant Reviews (PGR), and Covered Business Method (CBM) reviews."
+        },
+        {
+          "info": {
+            "name": "Get PTAB trial details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/ptab/trials/:trialNumber",
+            "params": [
+              {
+                "name": "trialNumber",
+                "value": "IPR2023-00001",
+                "type": "path",
+                "description": "PTAB trial number (e.g., IPR2023-00001)"
+              }
+            ]
+          },
+          "docs": "Returns detailed information for a specific PTAB trial proceeding."
+        },
+        {
+          "info": {
+            "name": "Search PTAB decisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/ptab/decisions/search",
+            "params": [
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Full-text search in decision documents"
+              },
+              {
+                "name": "proceedingType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "decisionType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateStart",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateEnd",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches PTAB decisions by trial number, date, or keyword."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Trademarks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get trademark application status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/trademark/status/:serialNumber",
+            "params": [
+              {
+                "name": "serialNumber",
+                "value": "88123456",
+                "type": "path",
+                "description": "Trademark serial number (8 digits)"
+              }
+            ]
+          },
+          "docs": "Returns the current status, prosecution history, and filing information for a trademark application or registration by serial number."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assignments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search patent assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/patent/assignments/search",
+            "params": [
+              {
+                "name": "patentNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "assignorName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "assigneeName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "conveyanceType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateStart",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateEnd",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches recorded patent assignments including ownership transfers, security agreements, and merger/acquisition records."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
