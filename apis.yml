@@ -130,6 +130,10 @@ apis:
       - type: OpenAPI
         url: https://developer.uspto.gov/ds-api/swagger/docs/enriched_cited_reference_metadata.json
 common:
+  - type: DomainSecurity
+    url: security/uspto-domain-security.yml
+  - type: Authentication
+    url: authentication/uspto-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/USPTO
   - type: LinkedIn
@@ -156,6 +160,8 @@ common:
     url: rules/uspto-rules.yml
   - type: Vocabulary
     url: vocabulary/uspto-vocabulary.yml
+  - url: https://www.uspto.gov/rss.xml
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

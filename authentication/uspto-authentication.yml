@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/uspto-patent-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyHeader
+  type: apiKey
+  in: header
+  parameter: X-API-KEY
+  description: USPTO Open Data Portal API key
+  sources:
+  - openapi/uspto-patent-api-openapi.yml
