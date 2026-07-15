@@ -130,6 +130,8 @@ apis:
       - type: OpenAPI
         url: https://developer.uspto.gov/ds-api/swagger/docs/enriched_cited_reference_metadata.json
 common:
+  - type: AgenticAccess
+    url: agentic-access/uspto-agentic-access.yml
   - type: DomainSecurity
     url: security/uspto-domain-security.yml
   - type: Authentication
