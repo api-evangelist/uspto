@@ -1,0 +1,134 @@
+openapi: 3.1.0
+info:
+  title: USPTO Patent & Trademark Assignments API
+  description: The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, PTAB trial proceedings, trademark status lookup, and patent citation data. APIs are hosted at developer.uspto.gov and data.uspto.gov. An ODP API key is required for most endpoints.
+  version: '3.0'
+  contact:
+    name: USPTO Open Data Portal
+    url: https://developer.uspto.gov/
+  license:
+    name: Public Domain (U.S. Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://data.uspto.gov/api/v1
+  description: USPTO Open Data Portal API v1
+- url: https://developer.uspto.gov/ds-api
+  description: USPTO Data Set API (legacy)
+security:
+- ApiKeyHeader: []
+tags:
+- name: Assignments
+  description: Patent assignment records
+paths:
+  /patent/assignments/search:
+    get:
+      operationId: searchPatentAssignments
+      summary: Search patent assignments
+      description: Searches recorded patent assignments including ownership transfers, security agreements, and merger/acquisition records.
+      tags:
+      - Assignments
+      parameters:
+      - name: patentNumber
+        in: query
+        schema:
+          type: string
+      - name: assignorName
+        in: query
+        schema:
+          type: string
+      - name: assigneeName
+        in: query
+        schema:
+          type: string
+      - name: conveyanceType
+        in: query
+        schema:
+          type: string
+          enum:
+          - ASSIGNMENT
+          - SECURITY_AGREEMENT
+          - LICENSE
+          - MERGER
+      - name: dateStart
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: dateEnd
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+      responses:
+        '200':
+          description: Assignment search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentSearchResponse'
+components:
+  schemas:
+    AssignmentSearchResponse:
+      type: object
+      properties:
+        assignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assignment'
+        totalResults:
+          type: integer
+    Assignment:
+      type: object
+      properties:
+        reelFrame:
+          type: string
+          description: Reel/Frame assignment identifier
+        conveyanceType:
+          type: string
+        recordDate:
+          type: string
+          format: date
+        executionDate:
+          type: string
+          format: date
+        assignors:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+        assignees:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              address:
+                type: string
+        patents:
+          type: array
+          items:
+            type: object
+            properties:
+              patentNumber:
+                type: string
+              applicationNumber:
+                type: string
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: USPTO Open Data Portal API key

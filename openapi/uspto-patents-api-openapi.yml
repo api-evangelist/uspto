@@ -1,0 +1,343 @@
+openapi: 3.1.0
+info:
+  title: USPTO Patent & Trademark Assignments Patents API
+  description: The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, PTAB trial proceedings, trademark status lookup, and patent citation data. APIs are hosted at developer.uspto.gov and data.uspto.gov. An ODP API key is required for most endpoints.
+  version: '3.0'
+  contact:
+    name: USPTO Open Data Portal
+    url: https://developer.uspto.gov/
+  license:
+    name: Public Domain (U.S. Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://data.uspto.gov/api/v1
+  description: USPTO Open Data Portal API v1
+- url: https://developer.uspto.gov/ds-api
+  description: USPTO Data Set API (legacy)
+security:
+- ApiKeyHeader: []
+tags:
+- name: Patents
+  description: Patent search and retrieval
+paths:
+  /patent/applications/search:
+    get:
+      operationId: searchPatentApplications
+      summary: Search patent applications
+      description: Searches USPTO patent applications by keyword, inventor, assignee, filing date, classification code, and other criteria. Returns application metadata for published and granted patents.
+      tags:
+      - Patents
+      parameters:
+      - name: query
+        in: query
+        required: false
+        description: Keyword search query
+        schema:
+          type: string
+        example: autonomous vehicle lidar sensor
+      - name: inventor
+        in: query
+        schema:
+          type: string
+        description: Inventor name (last name, first name)
+      - name: assignee
+        in: query
+        schema:
+          type: string
+        description: Assignee/applicant company name
+      - name: filingDateStart
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Filing date range start
+      - name: filingDateEnd
+        in: query
+        schema:
+          type: string
+          format: date
+        description: Filing date range end
+      - name: cpcClassification
+        in: query
+        schema:
+          type: string
+        description: CPC (Cooperative Patent Classification) code
+        example: B60W2050/0001
+      - name: patentType
+        in: query
+        schema:
+          type: string
+          enum:
+          - UTILITY
+          - DESIGN
+          - PLANT
+          - REISSUE
+        default: UTILITY
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - PENDING
+          - GRANTED
+          - ABANDONED
+          - EXPIRED
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+          maximum: 100
+      responses:
+        '200':
+          description: Patent application search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatentSearchResponse'
+        '401':
+          description: Invalid or missing API key
+        '429':
+          description: Rate limit exceeded
+  /patent/applications/{applicationNumber}:
+    get:
+      operationId: getPatentApplication
+      summary: Get patent application details
+      description: Returns full metadata for a specific patent application including claims, abstract, inventors, assignees, filing history, and prosecution history.
+      tags:
+      - Patents
+      parameters:
+      - name: applicationNumber
+        in: path
+        required: true
+        description: USPTO application number (e.g., 16123456)
+        schema:
+          type: string
+        example: '16123456'
+      responses:
+        '200':
+          description: Patent application details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PatentApplication'
+        '404':
+          description: Application not found
+  /patent/grants/{patentNumber}:
+    get:
+      operationId: getGrantedPatent
+      summary: Get a granted patent
+      description: Returns full details for a granted United States patent by patent number.
+      tags:
+      - Patents
+      parameters:
+      - name: patentNumber
+        in: path
+        required: true
+        description: USPTO patent number (without US prefix)
+        schema:
+          type: string
+        example: '10234567'
+      responses:
+        '200':
+          description: Granted patent details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrantedPatent'
+        '404':
+          description: Patent not found
+components:
+  schemas:
+    PatentSummary:
+      type: object
+      properties:
+        applicationNumber:
+          type: string
+        patentNumber:
+          type: string
+          nullable: true
+        title:
+          type: string
+        filingDate:
+          type: string
+          format: date
+        grantDate:
+          type: string
+          format: date
+          nullable: true
+        status:
+          type: string
+          enum:
+          - PENDING
+          - GRANTED
+          - ABANDONED
+          - EXPIRED
+        patentType:
+          type: string
+        inventors:
+          type: array
+          items:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+        assignees:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              country:
+                type: string
+        cpcClassifications:
+          type: array
+          items:
+            type: string
+    PatentApplication:
+      type: object
+      properties:
+        applicationNumber:
+          type: string
+        title:
+          type: string
+        abstract:
+          type: string
+        filingDate:
+          type: string
+          format: date
+        publicationDate:
+          type: string
+          format: date
+          nullable: true
+        status:
+          type: string
+        patentType:
+          type: string
+        inventors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Inventor'
+        assignees:
+          type: array
+          items:
+            $ref: '#/components/schemas/Assignee'
+        cpcClassifications:
+          type: array
+          items:
+            $ref: '#/components/schemas/Classification'
+        claims:
+          type: array
+          items:
+            type: object
+            properties:
+              claimNumber:
+                type: integer
+              claimType:
+                type: string
+                enum:
+                - INDEPENDENT
+                - DEPENDENT
+              claimText:
+                type: string
+        prosecutionHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProsecutionEvent'
+    Assignee:
+      type: object
+      properties:
+        name:
+          type: string
+        entityType:
+          type: string
+          enum:
+          - INDIVIDUAL
+          - COMPANY
+          - UNIVERSITY
+          - GOVERNMENT
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+    PatentSearchResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PatentSummary'
+        totalResults:
+          type: integer
+        offset:
+          type: integer
+        limit:
+          type: integer
+    Inventor:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+    ProsecutionEvent:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        eventCode:
+          type: string
+        eventDescription:
+          type: string
+        documentUrl:
+          type: string
+          format: uri
+    GrantedPatent:
+      allOf:
+      - $ref: '#/components/schemas/PatentApplication'
+      - type: object
+        properties:
+          patentNumber:
+            type: string
+          grantDate:
+            type: string
+            format: date
+          expirationDate:
+            type: string
+            format: date
+    Classification:
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+        classificationType:
+          type: string
+          enum:
+          - CPC
+          - USPC
+          - IPC
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: USPTO Open Data Portal API key

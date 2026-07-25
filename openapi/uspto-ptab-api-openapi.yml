@@ -1,0 +1,287 @@
+openapi: 3.1.0
+info:
+  title: USPTO Patent & Trademark Assignments PTAB API
+  description: The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, PTAB trial proceedings, trademark status lookup, and patent citation data. APIs are hosted at developer.uspto.gov and data.uspto.gov. An ODP API key is required for most endpoints.
+  version: '3.0'
+  contact:
+    name: USPTO Open Data Portal
+    url: https://developer.uspto.gov/
+  license:
+    name: Public Domain (U.S. Government Work)
+    url: https://www.usa.gov/government-works
+servers:
+- url: https://data.uspto.gov/api/v1
+  description: USPTO Open Data Portal API v1
+- url: https://developer.uspto.gov/ds-api
+  description: USPTO Data Set API (legacy)
+security:
+- ApiKeyHeader: []
+tags:
+- name: PTAB
+  description: Patent Trial and Appeal Board proceedings
+paths:
+  /ptab/trials:
+    get:
+      operationId: searchPTABTrials
+      summary: Search PTAB trial proceedings
+      description: Searches Patent Trial and Appeal Board (PTAB) proceedings including Inter Partes Reviews (IPR), Post-Grant Reviews (PGR), and Covered Business Method (CBM) reviews.
+      tags:
+      - PTAB
+      parameters:
+      - name: patentNumber
+        in: query
+        schema:
+          type: string
+        description: Challenged patent number
+      - name: petitionerName
+        in: query
+        schema:
+          type: string
+      - name: patentOwnerName
+        in: query
+        schema:
+          type: string
+      - name: proceedingType
+        in: query
+        schema:
+          type: string
+          enum:
+          - IPR
+          - PGR
+          - CBM
+          - DER
+          - POP
+        description: Type of PTAB proceeding
+      - name: filingDateStart
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: filingDateEnd
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - INSTITUTED
+          - DENIED
+          - TERMINATED
+          - SETTLED
+          - PENDING
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+      responses:
+        '200':
+          description: PTAB trial search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PTABTrialSearchResponse'
+  /ptab/trials/{trialNumber}:
+    get:
+      operationId: getPTABTrial
+      summary: Get PTAB trial details
+      description: Returns detailed information for a specific PTAB trial proceeding.
+      tags:
+      - PTAB
+      parameters:
+      - name: trialNumber
+        in: path
+        required: true
+        description: PTAB trial number (e.g., IPR2023-00001)
+        schema:
+          type: string
+        example: IPR2023-00001
+      responses:
+        '200':
+          description: PTAB trial details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PTABTrial'
+        '404':
+          description: Trial not found
+  /ptab/decisions/search:
+    get:
+      operationId: searchPTABDecisions
+      summary: Search PTAB decisions
+      description: Searches PTAB decisions by trial number, date, or keyword.
+      tags:
+      - PTAB
+      parameters:
+      - name: searchText
+        in: query
+        schema:
+          type: string
+        description: Full-text search in decision documents
+      - name: proceedingType
+        in: query
+        schema:
+          type: string
+          enum:
+          - IPR
+          - PGR
+          - CBM
+      - name: decisionType
+        in: query
+        schema:
+          type: string
+          enum:
+          - INSTITUTION
+          - FINAL_WRITTEN_DECISION
+          - CLAIM_CONSTRUCTION
+      - name: dateStart
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: dateEnd
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 25
+      responses:
+        '200':
+          description: PTAB decision results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PTABDecisionSearchResponse'
+components:
+  schemas:
+    PTABDecisionSearchResponse:
+      type: object
+      properties:
+        decisions:
+          type: array
+          items:
+            type: object
+            properties:
+              trialNumber:
+                type: string
+              decisionType:
+                type: string
+              decisionDate:
+                type: string
+                format: date
+              documentUrl:
+                type: string
+                format: uri
+        totalResults:
+          type: integer
+    PTABTrialSummary:
+      type: object
+      properties:
+        trialNumber:
+          type: string
+        proceedingType:
+          type: string
+          enum:
+          - IPR
+          - PGR
+          - CBM
+          - DER
+          - POP
+        status:
+          type: string
+        patentNumber:
+          type: string
+        petitionerName:
+          type: string
+        patentOwnerName:
+          type: string
+        filingDate:
+          type: string
+          format: date
+        institutionDate:
+          type: string
+          format: date
+          nullable: true
+        finalDecisionDate:
+          type: string
+          format: date
+          nullable: true
+    PTABTrialSearchResponse:
+      type: object
+      properties:
+        trials:
+          type: array
+          items:
+            $ref: '#/components/schemas/PTABTrialSummary'
+        totalResults:
+          type: integer
+        offset:
+          type: integer
+    PTABTrial:
+      allOf:
+      - $ref: '#/components/schemas/PTABTrialSummary'
+      - type: object
+        properties:
+          contestedClaims:
+            type: array
+            items:
+              type: integer
+          groundsOfChallenge:
+            type: array
+            items:
+              type: object
+              properties:
+                claimNumbers:
+                  type: array
+                  items:
+                    type: integer
+                priorArtType:
+                  type: string
+                  enum:
+                  - ANTICIPATION
+                  - OBVIOUSNESS
+                  - WRITTEN_DESCRIPTION
+                priorArtReferences:
+                  type: array
+                  items:
+                    type: string
+          documents:
+            type: array
+            items:
+              type: object
+              properties:
+                documentId:
+                  type: string
+                documentType:
+                  type: string
+                filedBy:
+                  type: string
+                filingDate:
+                  type: string
+                  format: date
+                documentUrl:
+                  type: string
+                  format: uri
+  securitySchemes:
+    ApiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: USPTO Open Data Portal API key
