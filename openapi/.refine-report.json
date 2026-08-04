@@ -1,0 +1,20 @@
+{
+  "provider": "uspto",
+  "sources": [
+    "uspto-assignments-api-openapi.yml",
+    "uspto-patents-api-openapi.yml",
+    "uspto-ptab-api-openapi.yml",
+    "uspto-trademarks-api-openapi.yml"
+  ],
+  "outputs": [
+    "uspto-assignments-api-openapi.yml",
+    "uspto-patents-api-openapi.yml",
+    "uspto-ptab-api-openapi.yml",
+    "uspto-trademarks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
