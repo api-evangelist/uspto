@@ -1,0 +1,196 @@
+{
+  "item": [
+    {
+      "id": "0286544d-e94c-467c-849c-3f8666817828",
+      "name": "Trademarks",
+      "description": {
+        "content": "Trademark status and documents",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "79ebfd47-613c-4c89-8457-b7dd647f6114",
+          "name": "Get trademark application status",
+          "request": {
+            "name": "Get trademark application status",
+            "description": {
+              "content": "Returns the current status, prosecution history, and filing information for a trademark application or registration by serial number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trademark",
+                "status",
+                ":serialNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "serialNumber",
+                  "description": "(Required) Trademark serial number (8 digits)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12b5d1e9-7c01-48d6-a636-28726f0a9153",
+              "name": "Trademark status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trademark",
+                    "status",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) Trademark serial number (8 digits)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"serialNumber\": \"string\",\n  \"registrationNumber\": \"string\",\n  \"markLiteralElements\": \"string\",\n  \"status\": \"string\",\n  \"statusCode\": \"string\",\n  \"statusDate\": \"1995-06-09\",\n  \"filingDate\": \"1973-12-03\",\n  \"registrationDate\": \"1958-11-09\",\n  \"expirationDate\": \"1993-10-06\",\n  \"applicantName\": \"string\",\n  \"goodsAndServices\": \"string\",\n  \"internationalClasses\": [\n    2051,\n    9588\n  ],\n  \"prosecutionHistory\": [\n    {\n      \"date\": \"2017-02-12\",\n      \"code\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"date\": \"2008-06-24\",\n      \"code\": \"string\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "beec6a74-1f57-4c90-9a3d-7ad816dc2e71",
+              "name": "Trademark not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trademark",
+                    "status",
+                    ":serialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "serialNumber",
+                      "description": "(Required) Trademark serial number (8 digits)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data.uspto.gov/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7fdf16e7-c243-4c8e-8603-d6c975f0e0d7",
+    "name": "USPTO Patent & Trademark Assignments Trademarks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, PTAB trial proceedings, trademark status lookup, and patent citation data. APIs are hosted at developer.uspto.gov and data.uspto.gov. An ODP API key is required for most endpoints.\n\nContact Support:\n Name: USPTO Open Data Portal",
+      "type": "text/plain"
+    }
+  }
+}

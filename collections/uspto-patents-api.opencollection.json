@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "USPTO Patent & Trademark Assignments Patents API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Patents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search patent applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/patent/applications/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "autonomous vehicle lidar sensor",
+                "type": "query",
+                "description": "Keyword search query"
+              },
+              {
+                "name": "inventor",
+                "value": "",
+                "type": "query",
+                "description": "Inventor name (last name, first name)"
+              },
+              {
+                "name": "assignee",
+                "value": "",
+                "type": "query",
+                "description": "Assignee/applicant company name"
+              },
+              {
+                "name": "filingDateStart",
+                "value": "",
+                "type": "query",
+                "description": "Filing date range start"
+              },
+              {
+                "name": "filingDateEnd",
+                "value": "",
+                "type": "query",
+                "description": "Filing date range end"
+              },
+              {
+                "name": "cpcClassification",
+                "value": "B60W2050/0001",
+                "type": "query",
+                "description": "CPC (Cooperative Patent Classification) code"
+              },
+              {
+                "name": "patentType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches USPTO patent applications by keyword, inventor, assignee, filing date, classification code, and other criteria. Returns application metadata for published and granted patents."
+        },
+        {
+          "info": {
+            "name": "Get patent application details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/patent/applications/:applicationNumber",
+            "params": [
+              {
+                "name": "applicationNumber",
+                "value": "16123456",
+                "type": "path",
+                "description": "USPTO application number (e.g., 16123456)"
+              }
+            ]
+          },
+          "docs": "Returns full metadata for a specific patent application including claims, abstract, inventors, assignees, filing history, and prosecution history."
+        },
+        {
+          "info": {
+            "name": "Get a granted patent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/patent/grants/:patentNumber",
+            "params": [
+              {
+                "name": "patentNumber",
+                "value": "10234567",
+                "type": "path",
+                "description": "USPTO patent number (without US prefix)"
+              }
+            ]
+          },
+          "docs": "Returns full details for a granted United States patent by patent number."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,687 @@
+{
+  "item": [
+    {
+      "id": "22ca32e7-72dd-4641-ab1f-17eaa09394f6",
+      "name": "Patents",
+      "description": {
+        "content": "Patent search and retrieval",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e3aef86-3240-4e2f-8034-9b9a941616d4",
+          "name": "Search patent applications",
+          "request": {
+            "name": "Search patent applications",
+            "description": {
+              "content": "Searches USPTO patent applications by keyword, inventor, assignee, filing date, classification code, and other criteria. Returns application metadata for published and granted patents.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patent",
+                "applications",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Keyword search query"
+                },
+                {
+                  "disabled": false,
+                  "key": "inventor",
+                  "value": "<string>",
+                  "description": "Inventor name (last name, first name)"
+                },
+                {
+                  "disabled": false,
+                  "key": "assignee",
+                  "value": "<string>",
+                  "description": "Assignee/applicant company name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filingDateStart",
+                  "value": "<date>",
+                  "description": "Filing date range start"
+                },
+                {
+                  "disabled": false,
+                  "key": "filingDateEnd",
+                  "value": "<date>",
+                  "description": "Filing date range end"
+                },
+                {
+                  "disabled": false,
+                  "key": "cpcClassification",
+                  "value": "<string>",
+                  "description": "CPC (Cooperative Patent Classification) code"
+                },
+                {
+                  "disabled": false,
+                  "key": "patentType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d9c1f5d7-31f1-46d1-9f8e-94b8c69e27f4",
+              "name": "Patent application search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patent",
+                    "applications",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "autonomous vehicle lidar sensor"
+                    },
+                    {
+                      "key": "inventor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filingDateStart",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "filingDateEnd",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "cpcClassification",
+                      "value": "B60W2050/0001"
+                    },
+                    {
+                      "key": "patentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"applicationNumber\": \"string\",\n      \"patentNumber\": \"string\",\n      \"title\": \"string\",\n      \"filingDate\": \"1985-09-21\",\n      \"grantDate\": \"1985-01-11\",\n      \"status\": \"ABANDONED\",\n      \"patentType\": \"string\",\n      \"inventors\": [\n        {\n          \"firstName\": \"string\",\n          \"lastName\": \"string\"\n        },\n        {\n          \"firstName\": \"string\",\n          \"lastName\": \"string\"\n        }\n      ],\n      \"assignees\": [\n        {\n          \"name\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"cpcClassifications\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"applicationNumber\": \"string\",\n      \"patentNumber\": \"string\",\n      \"title\": \"string\",\n      \"filingDate\": \"1993-05-20\",\n      \"grantDate\": \"1967-08-18\",\n      \"status\": \"EXPIRED\",\n      \"patentType\": \"string\",\n      \"inventors\": [\n        {\n          \"firstName\": \"string\",\n          \"lastName\": \"string\"\n        },\n        {\n          \"firstName\": \"string\",\n          \"lastName\": \"string\"\n        }\n      ],\n      \"assignees\": [\n        {\n          \"name\": \"string\",\n          \"country\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"country\": \"string\"\n        }\n      ],\n      \"cpcClassifications\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"totalResults\": 5685,\n  \"offset\": 3814,\n  \"limit\": 1565\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bc7d791d-2fe7-4b32-b0ca-786763ae7eba",
+              "name": "Invalid or missing API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patent",
+                    "applications",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "autonomous vehicle lidar sensor"
+                    },
+                    {
+                      "key": "inventor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filingDateStart",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "filingDateEnd",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "cpcClassification",
+                      "value": "B60W2050/0001"
+                    },
+                    {
+                      "key": "patentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8aa1ffa8-914f-4eff-b82a-c8974e010e32",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patent",
+                    "applications",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "autonomous vehicle lidar sensor"
+                    },
+                    {
+                      "key": "inventor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assignee",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filingDateStart",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "filingDateEnd",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "cpcClassification",
+                      "value": "B60W2050/0001"
+                    },
+                    {
+                      "key": "patentType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed0fc4a4-c50e-4833-834d-1482fdae0f01",
+          "name": "Get patent application details",
+          "request": {
+            "name": "Get patent application details",
+            "description": {
+              "content": "Returns full metadata for a specific patent application including claims, abstract, inventors, assignees, filing history, and prosecution history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patent",
+                "applications",
+                ":applicationNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "applicationNumber",
+                  "description": "(Required) USPTO application number (e.g., 16123456)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0a331e66-6989-48d2-83d6-ca73293337fb",
+              "name": "Patent application details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patent",
+                    "applications",
+                    ":applicationNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "applicationNumber",
+                      "description": "(Required) USPTO application number (e.g., 16123456)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applicationNumber\": \"string\",\n  \"title\": \"string\",\n  \"abstract\": \"string\",\n  \"filingDate\": \"2025-05-27\",\n  \"publicationDate\": \"2017-12-24\",\n  \"status\": \"string\",\n  \"patentType\": \"string\",\n  \"inventors\": [\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"assignees\": [\n    {\n      \"name\": \"string\",\n      \"entityType\": \"GOVERNMENT\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"entityType\": \"COMPANY\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"cpcClassifications\": [\n    {\n      \"code\": \"string\",\n      \"description\": \"string\",\n      \"classificationType\": \"USPC\"\n    },\n    {\n      \"code\": \"string\",\n      \"description\": \"string\",\n      \"classificationType\": \"USPC\"\n    }\n  ],\n  \"claims\": [\n    {\n      \"claimNumber\": 6017,\n      \"claimType\": \"INDEPENDENT\",\n      \"claimText\": \"string\"\n    },\n    {\n      \"claimNumber\": 1786,\n      \"claimType\": \"INDEPENDENT\",\n      \"claimText\": \"string\"\n    }\n  ],\n  \"prosecutionHistory\": [\n    {\n      \"date\": \"2002-03-20\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"documentUrl\": \"https://orzVGhEdIyecuBvf.qcecxEbbwjz0RuP23\"\n    },\n    {\n      \"date\": \"1999-12-12\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"documentUrl\": \"http://WZPH.vvdllO+M-zCrW06GodrHoBriGqEyr\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4926effc-11da-46fd-b004-0531e48f665c",
+              "name": "Application not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patent",
+                    "applications",
+                    ":applicationNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "applicationNumber",
+                      "description": "(Required) USPTO application number (e.g., 16123456)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38be6634-22e4-4541-9bb0-97b5e7aba741",
+          "name": "Get a granted patent",
+          "request": {
+            "name": "Get a granted patent",
+            "description": {
+              "content": "Returns full details for a granted United States patent by patent number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patent",
+                "grants",
+                ":patentNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "patentNumber",
+                  "description": "(Required) USPTO patent number (without US prefix)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2e2dfea8-a879-4190-9936-deb08f9f6068",
+              "name": "Granted patent details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patent",
+                    "grants",
+                    ":patentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "patentNumber",
+                      "description": "(Required) USPTO patent number (without US prefix)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"applicationNumber\": \"string\",\n  \"title\": \"string\",\n  \"abstract\": \"string\",\n  \"filingDate\": \"2009-08-21\",\n  \"publicationDate\": \"2022-12-07\",\n  \"status\": \"string\",\n  \"patentType\": \"string\",\n  \"inventors\": [\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"firstName\": \"string\",\n      \"lastName\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"assignees\": [\n    {\n      \"name\": \"string\",\n      \"entityType\": \"UNIVERSITY\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"entityType\": \"INDIVIDUAL\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"country\": \"string\"\n    }\n  ],\n  \"cpcClassifications\": [\n    {\n      \"code\": \"string\",\n      \"description\": \"string\",\n      \"classificationType\": \"IPC\"\n    },\n    {\n      \"code\": \"string\",\n      \"description\": \"string\",\n      \"classificationType\": \"CPC\"\n    }\n  ],\n  \"claims\": [\n    {\n      \"claimNumber\": 5551,\n      \"claimType\": \"INDEPENDENT\",\n      \"claimText\": \"string\"\n    },\n    {\n      \"claimNumber\": 2917,\n      \"claimType\": \"DEPENDENT\",\n      \"claimText\": \"string\"\n    }\n  ],\n  \"prosecutionHistory\": [\n    {\n      \"date\": \"1980-12-10\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"documentUrl\": \"http://zIgpocGvwcxwqisOzrtvloWiiUobXRO.sevF0c1Syg1B3YMwW-\"\n    },\n    {\n      \"date\": \"1991-08-18\",\n      \"eventCode\": \"string\",\n      \"eventDescription\": \"string\",\n      \"documentUrl\": \"http://btRcLYcHubHTZzmSuqRdmiXrHbf.deahw0sNwiIsauUq4+x460mDxOEZDMS2.ARQik5RS2GozU3HTFQFAsuuLv\"\n    }\n  ],\n  \"patentNumber\": \"string\",\n  \"grantDate\": \"1992-05-04\",\n  \"expirationDate\": \"2005-02-08\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2e1cf4f-9674-44d6-966f-a3d896ab2826",
+              "name": "Patent not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patent",
+                    "grants",
+                    ":patentNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "patentNumber",
+                      "description": "(Required) USPTO patent number (without US prefix)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data.uspto.gov/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "257d5e6f-1e3d-4cdb-9460-05aa72eeabba",
+    "name": "USPTO Patent & Trademark Assignments Patents API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, PTAB trial proceedings, trademark status lookup, and patent citation data. APIs are hosted at developer.uspto.gov and data.uspto.gov. An ODP API key is required for most endpoints.\n\nContact Support:\n Name: USPTO Open Data Portal",
+      "type": "text/plain"
+    }
+  }
+}

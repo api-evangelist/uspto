@@ -1,0 +1,154 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "USPTO Patent & Trademark Assignments PTAB API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "PTAB",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search PTAB trial proceedings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/ptab/trials",
+            "params": [
+              {
+                "name": "patentNumber",
+                "value": "",
+                "type": "query",
+                "description": "Challenged patent number"
+              },
+              {
+                "name": "petitionerName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "patentOwnerName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "proceedingType",
+                "value": "",
+                "type": "query",
+                "description": "Type of PTAB proceeding"
+              },
+              {
+                "name": "filingDateStart",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filingDateEnd",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches Patent Trial and Appeal Board (PTAB) proceedings including Inter Partes Reviews (IPR), Post-Grant Reviews (PGR), and Covered Business Method (CBM) reviews."
+        },
+        {
+          "info": {
+            "name": "Get PTAB trial details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/ptab/trials/:trialNumber",
+            "params": [
+              {
+                "name": "trialNumber",
+                "value": "IPR2023-00001",
+                "type": "path",
+                "description": "PTAB trial number (e.g., IPR2023-00001)"
+              }
+            ]
+          },
+          "docs": "Returns detailed information for a specific PTAB trial proceeding."
+        },
+        {
+          "info": {
+            "name": "Search PTAB decisions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/ptab/decisions/search",
+            "params": [
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Full-text search in decision documents"
+              },
+              {
+                "name": "proceedingType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "decisionType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateStart",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateEnd",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches PTAB decisions by trial number, date, or keyword."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

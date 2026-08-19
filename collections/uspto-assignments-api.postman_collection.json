@@ -1,0 +1,205 @@
+{
+  "item": [
+    {
+      "id": "f166441f-6e32-40e8-bab2-4e32a58ba42c",
+      "name": "Assignments",
+      "description": {
+        "content": "Patent assignment records",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "afa46a05-5dd1-4376-96c4-27a6c9f87438",
+          "name": "Search patent assignments",
+          "request": {
+            "name": "Search patent assignments",
+            "description": {
+              "content": "Searches recorded patent assignments including ownership transfers, security agreements, and merger/acquisition records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "patent",
+                "assignments",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "patentNumber",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "assignorName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "assigneeName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "conveyanceType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateStart",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateEnd",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cbc8b9bd-ecd8-42f5-a377-cb60414ff518",
+              "name": "Assignment search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "patent",
+                    "assignments",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assignorName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "assigneeName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "conveyanceType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dateStart",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dateEnd",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assignments\": [\n    {\n      \"reelFrame\": \"string\",\n      \"conveyanceType\": \"string\",\n      \"recordDate\": \"2005-12-23\",\n      \"executionDate\": \"1961-02-06\",\n      \"assignors\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"assignees\": [\n        {\n          \"name\": \"string\",\n          \"address\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"address\": \"string\"\n        }\n      ],\n      \"patents\": [\n        {\n          \"patentNumber\": \"string\",\n          \"applicationNumber\": \"string\"\n        },\n        {\n          \"patentNumber\": \"string\",\n          \"applicationNumber\": \"string\"\n        }\n      ]\n    },\n    {\n      \"reelFrame\": \"string\",\n      \"conveyanceType\": \"string\",\n      \"recordDate\": \"1987-06-03\",\n      \"executionDate\": \"1973-08-13\",\n      \"assignors\": [\n        {\n          \"name\": \"string\"\n        },\n        {\n          \"name\": \"string\"\n        }\n      ],\n      \"assignees\": [\n        {\n          \"name\": \"string\",\n          \"address\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"address\": \"string\"\n        }\n      ],\n      \"patents\": [\n        {\n          \"patentNumber\": \"string\",\n          \"applicationNumber\": \"string\"\n        },\n        {\n          \"patentNumber\": \"string\",\n          \"applicationNumber\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"totalResults\": 1501\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data.uspto.gov/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "af13f2ee-0b1e-4e7e-aab3-8c09cac29ee4",
+    "name": "USPTO Patent & Trademark Assignments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, PTAB trial proceedings, trademark status lookup, and patent citation data. APIs are hosted at developer.uspto.gov and data.uspto.gov. An ODP API key is required for most endpoints.\n\nContact Support:\n Name: USPTO Open Data Portal",
+      "type": "text/plain"
+    }
+  }
+}

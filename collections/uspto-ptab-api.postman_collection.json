@@ -1,0 +1,509 @@
+{
+  "item": [
+    {
+      "id": "85737433-fa08-48ed-9e1f-d79ebff34505",
+      "name": "PTAB",
+      "description": {
+        "content": "Patent Trial and Appeal Board proceedings",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8016bfe4-dc68-4fe4-bc57-cf64f1641c77",
+          "name": "Search PTAB trial proceedings",
+          "request": {
+            "name": "Search PTAB trial proceedings",
+            "description": {
+              "content": "Searches Patent Trial and Appeal Board (PTAB) proceedings including Inter Partes Reviews (IPR), Post-Grant Reviews (PGR), and Covered Business Method (CBM) reviews.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ptab",
+                "trials"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "patentNumber",
+                  "value": "<string>",
+                  "description": "Challenged patent number"
+                },
+                {
+                  "disabled": false,
+                  "key": "petitionerName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "patentOwnerName",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "proceedingType",
+                  "value": "<string>",
+                  "description": "Type of PTAB proceeding"
+                },
+                {
+                  "disabled": false,
+                  "key": "filingDateStart",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filingDateEnd",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93e9cb5c-e093-44de-9102-3e63fdf2b269",
+              "name": "PTAB trial search results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ptab",
+                    "trials"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patentNumber",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "petitionerName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "patentOwnerName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "proceedingType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filingDateStart",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "filingDateEnd",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trials\": [\n    {\n      \"trialNumber\": \"string\",\n      \"proceedingType\": \"PGR\",\n      \"status\": \"string\",\n      \"patentNumber\": \"string\",\n      \"petitionerName\": \"string\",\n      \"patentOwnerName\": \"string\",\n      \"filingDate\": \"1970-01-20\",\n      \"institutionDate\": \"1985-11-24\",\n      \"finalDecisionDate\": \"1999-08-16\"\n    },\n    {\n      \"trialNumber\": \"string\",\n      \"proceedingType\": \"POP\",\n      \"status\": \"string\",\n      \"patentNumber\": \"string\",\n      \"petitionerName\": \"string\",\n      \"patentOwnerName\": \"string\",\n      \"filingDate\": \"1978-04-08\",\n      \"institutionDate\": \"1949-12-12\",\n      \"finalDecisionDate\": \"2011-07-24\"\n    }\n  ],\n  \"totalResults\": 5193,\n  \"offset\": 8657\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "85992a1c-5dc0-4715-a1a5-076df4d46444",
+          "name": "Get PTAB trial details",
+          "request": {
+            "name": "Get PTAB trial details",
+            "description": {
+              "content": "Returns detailed information for a specific PTAB trial proceeding.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ptab",
+                "trials",
+                ":trialNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "trialNumber",
+                  "description": "(Required) PTAB trial number (e.g., IPR2023-00001)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0ba4ad78-ad0d-459d-9757-b42a968a3b9c",
+              "name": "PTAB trial details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ptab",
+                    "trials",
+                    ":trialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trialNumber",
+                      "description": "(Required) PTAB trial number (e.g., IPR2023-00001)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trialNumber\": \"string\",\n  \"proceedingType\": \"DER\",\n  \"status\": \"string\",\n  \"patentNumber\": \"string\",\n  \"petitionerName\": \"string\",\n  \"patentOwnerName\": \"string\",\n  \"filingDate\": \"2005-08-05\",\n  \"institutionDate\": \"2020-05-06\",\n  \"finalDecisionDate\": \"1993-07-26\",\n  \"contestedClaims\": [\n    6167,\n    1302\n  ],\n  \"groundsOfChallenge\": [\n    {\n      \"claimNumbers\": [\n        4003,\n        6333\n      ],\n      \"priorArtType\": \"OBVIOUSNESS\",\n      \"priorArtReferences\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"claimNumbers\": [\n        1957,\n        7955\n      ],\n      \"priorArtType\": \"OBVIOUSNESS\",\n      \"priorArtReferences\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ],\n  \"documents\": [\n    {\n      \"documentId\": \"string\",\n      \"documentType\": \"string\",\n      \"filedBy\": \"string\",\n      \"filingDate\": \"1994-05-15\",\n      \"documentUrl\": \"http://xCOxEGUERDADN.ekijolYFCKrZPl.EToiXjelXUCYhWZd63N1u\"\n    },\n    {\n      \"documentId\": \"string\",\n      \"documentType\": \"string\",\n      \"filedBy\": \"string\",\n      \"filingDate\": \"1947-12-25\",\n      \"documentUrl\": \"http://MzpeJHataWDxtsEuqWoMATMWENhMLD.dtkVZz9ts4BVkrM5GGOFSIbG-SEorBL0Ln29xBhPto-pJ+TkdEmMCVrjMY7XYPG1\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b95f606b-20de-464d-b803-4c98ed0fb4a3",
+              "name": "Trial not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ptab",
+                    "trials",
+                    ":trialNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "trialNumber",
+                      "description": "(Required) PTAB trial number (e.g., IPR2023-00001)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d134083e-ce66-4719-8307-63dc8afb0c71",
+          "name": "Search PTAB decisions",
+          "request": {
+            "name": "Search PTAB decisions",
+            "description": {
+              "content": "Searches PTAB decisions by trial number, date, or keyword.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ptab",
+                "decisions",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "searchText",
+                  "value": "<string>",
+                  "description": "Full-text search in decision documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "proceedingType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "decisionType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateStart",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "dateEnd",
+                  "value": "<date>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc0e3c39-a259-444b-8e98-7ae3fe1f16b5",
+              "name": "PTAB decision results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ptab",
+                    "decisions",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchText",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "proceedingType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "decisionType",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "dateStart",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "dateEnd",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"decisions\": [\n    {\n      \"trialNumber\": \"string\",\n      \"decisionType\": \"string\",\n      \"decisionDate\": \"2005-10-28\",\n      \"documentUrl\": \"http://EPUsxqURHEifsAaxURx.cwqoElaTJWnf6h5g0\"\n    },\n    {\n      \"trialNumber\": \"string\",\n      \"decisionType\": \"string\",\n      \"decisionDate\": \"1957-06-04\",\n      \"documentUrl\": \"http://mKFDBLkGfRDWmbOjTenXrFjFAzeblggrT.klImE\"\n    }\n  ],\n  \"totalResults\": 1114\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://data.uspto.gov/api/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b097bb13-cbf7-4593-a6c3-b7cb261f7bd5",
+    "name": "USPTO Patent & Trademark Assignments PTAB API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The United States Patent and Trademark Office (USPTO) provides REST APIs for patent search, PTAB trial proceedings, trademark status lookup, and patent citation data. APIs are hosted at developer.uspto.gov and data.uspto.gov. An ODP API key is required for most endpoints.\n\nContact Support:\n Name: USPTO Open Data Portal",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "USPTO Patent & Trademark Assignments API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assignments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search patent assignments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://data.uspto.gov/api/v1/patent/assignments/search",
+            "params": [
+              {
+                "name": "patentNumber",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "assignorName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "assigneeName",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "conveyanceType",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateStart",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dateEnd",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Searches recorded patent assignments including ownership transfers, security agreements, and merger/acquisition records."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
