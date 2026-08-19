@@ -32,7 +32,7 @@ tags:
 url: https://raw.githubusercontent.com/api-evangelist/uspto/refs/heads/main/apis.yml
 created: '2025-01-01'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: uspto:assignment-search-api
   name: USPTO Patent Assignment Search API
