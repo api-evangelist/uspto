@@ -1,0 +1,24 @@
+slug: uspto
+provider: USPTO
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Public Sector & Government
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Trademarks
+  spec_file: uspto-trademarks-api-openapi.yml
+  capability_id: BC-840.20
+  capability_id_l1: BC-840
+  capability_name: Trademark Management
+  confidence: 0.7
+  evidence: GET /trademark/status/{serialNumber}  "Get trademark application status" ; schema TrademarkStatus
+  reason: Retrieving trademark application status directly supports trademark filing and watch activity
+    (Trademark Management). Thin surface (single operation) limits confidence.

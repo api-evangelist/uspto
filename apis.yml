@@ -164,6 +164,9 @@ apis:
     url: >-
       https://developer.uspto.gov/ds-api-docs/index.html?url=https%3A//developer.uspto.gov/ds-api/swagger/docs/enriched_cited_reference_metadata.json/V3
 common:
+  - type: CapabilityMap
+    url: capabilities/uspto-capability-edges.yml
+    name: USPTO Business Capability Map
   - type: AgenticAccess
     url: agentic-access/uspto-agentic-access.yml
   - type: DomainSecurity
